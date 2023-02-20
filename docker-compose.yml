@@ -1,0 +1,65 @@
+version: "3.7"
+
+volumes:
+  db:
+    name: rolldebee-db
+  oradata:
+    name: oradata
+
+services:
+  db:
+    container_name: rolldebee-db
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: rolldebee
+      POSTGRES_PASSWORD: rolldebee
+    volumes:
+      - db:/var/lib/postgresql/data
+  oracle:
+    container_name: oracle
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=oracle
+    volumes:
+      - oradata:/opt/oracle/oradata
+      - ./db/oracle:/opt/oracle/scripts/startup
+  adminer:
+    container_name: rolldebee-adminer
+    image: adminer:4.8.1
+    ports:
+      - 9090:8080
+  api:
+    container_name: rolldebee-api
+    image: gradle:jdk17
+    working_dir: /app
+    command: sh -c "./gradlew bootRun"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rolldebee
+      - SPRING_DATASOURCE_USERNAME=rolldebee
+      - SPRING_DATASOURCE_PASSWORD=rolldebee
+      - ORACLE_HOST=oracle
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api:/app
+    depends_on:
+      - db
+      - oracle
+  ui:
+    container_name: rolldebee-ui
+    image: node:18-alpine
+    working_dir: /app
+    command: sh -c "npm i && npm run dev"
+    environment:
+      - VITE_API_URL=http://127.0.0.1:8080
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    depends_on:
+      - api

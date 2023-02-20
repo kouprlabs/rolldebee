@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  webflux:
+    base-path: ${SPRING_WEBFLUX_BASE_PATH:/v1}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/rolldebee}
+    username: ${SPRING_DATASOURCE_USERNAME:rolldebee}
+    password: ${SPRING_DATASOURCE_PASSWORD:rolldebee}
+    # https://tomcat.apache.org/tomcat-9.0-doc/jdbc-pool.html
+    tomcat:
+      max-wait: ${SPRING_DATASOURCE_TOMCAT_MAX_WAIT:300000}
+      max-idle: ${SPRING_DATASOURCE_TOMCAT_MAX_IDLE:5}
+      max-active: ${SPRING_DATASOURCE_TOMCAT_MAX_ACTIVE:5}
+      min-evictable-idle-time-millis: ${SPRING_DATASOURCE_TOMCAT_MIN_IDLE_MILLIS:5000}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update

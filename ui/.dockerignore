@@ -1,0 +1,10 @@
+.gitignore
+.gitattributes
+README.md
+Dockerfile
+.dockerignore
+.env
+node_modules
+.next
+npm-debug.log
+tsconfig.tsbuildinfo
