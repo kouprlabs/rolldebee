@@ -16,7 +16,7 @@ Start infrastructure services:
 docker compose up
 ```
 
-Follow instructions for running:
+Additional instructions for each service:
 
 - [Rolldebee API](api/README.md)
 - [Rolldebee UI](ui/README.md)
