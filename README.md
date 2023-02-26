@@ -24,11 +24,13 @@ Additional instructions:
 
 ### Run for Production
 
-Optionally build Docker images locally, if not they will be downloaded from [Docker Hub](https://hub.docker.com) in the second step:
+Build Docker images:
 
 ```sh
 docker-compose -f ./docker-compose.prod.yml build
 ```
+
+Then:
 
 ```sh
 docker-compose -f ./docker-compose.prod.yml up
