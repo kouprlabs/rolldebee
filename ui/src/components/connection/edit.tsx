@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Field, FieldAttributes, Form, Formik } from 'formik'
-import * as Yup from 'yup'
 import {
   Heading,
   IconButton,
@@ -14,17 +12,18 @@ import {
   InputGroup,
   InputRightElement,
   useBoolean,
-  Center,
   FormLabel,
   HStack,
 } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
+import { SectionSpinner } from '@koupr/ui'
+import { Field, FieldAttributes, Form, Formik } from 'formik'
+import * as Yup from 'yup'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 import ConnectionAPI from '@/api/connection'
 import TopBar from '@/components/common/top-bar'
 import { Container } from '@/components/layout'
-import variables from '@/theme/variables'
-import FullPageSpinner from '../common/full-page-spinner'
 import Delete from './delete'
 
 type EditProps = {
@@ -71,7 +70,7 @@ const Edit = ({ id }: EditProps) => {
   )
 
   if (!connection) {
-    return <FullPageSpinner />
+    return <SectionSpinner />
   }
 
   return (

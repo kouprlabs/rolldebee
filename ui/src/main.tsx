@@ -1,6 +1,8 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from '@koupr/ui'
 import ClonePage from '@/pages/actions/clone'
 import DisableConstraintsPage from '@/pages/actions/disable-constraints'
 import DisableTriggersPage from '@/pages/actions/disable-triggers'
@@ -15,12 +17,10 @@ import ConnectionIndexPage from '@/pages/connection/index'
 import ConnectionNewPage from '@/pages/connection/new'
 import IntrospectionIndexPage from '@/pages/introspection'
 import IntrospectionViewPage from '@/pages/introspection/view'
-import { ChakraProvider } from '@chakra-ui/react'
 import ReactDOM from 'react-dom/client'
 import store from '@/store/index'
 import Layout from '@/components/layout'
-import theme from '@/theme/index'
-import '@/styles/index.css'
+import '@koupr/ui/styles/index.css'
 
 const router = createBrowserRouter([
   {

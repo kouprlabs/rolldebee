@@ -6,17 +6,15 @@ import {
   Tr,
   Th,
   Td,
-  Center,
   Link as ChakraLink,
   Stack,
   Avatar,
   HStack,
 } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
+import { SectionSpinner } from '@koupr/ui'
 import ConnectionAPI from '@/api/connection'
 import { refreshInterval } from '@/api/options'
-import Spinner from '@/components/common/spinner'
-import variables from '@/theme/variables'
-import FullPageSpinner from '../common/full-page-spinner'
 import DatabaseTypeField from '../fields/database-type'
 
 const List = () => {
@@ -25,7 +23,7 @@ const List = () => {
   })
 
   if (!connections) {
-    return <FullPageSpinner />
+    return <SectionSpinner />
   }
 
   return (

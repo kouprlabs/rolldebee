@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Flex, Stack } from '@chakra-ui/react'
+import { Drawer, DrawerItem, variables } from '@koupr/ui'
 import { BsPlug, BsToggleOn, BsToggleOff, BsTrash } from 'react-icons/bs'
 import { GiSheep } from 'react-icons/gi'
 import { IoFlashOffOutline, IoFlashOutline } from 'react-icons/io5'
@@ -10,10 +11,7 @@ import {
   IoSync,
   IoGitCompareOutline,
 } from 'react-icons/io5'
-import Drawer from '@/components/common/drawer'
-import DrawerItem from '@/components/common/drawer/item'
 import Logo from '@/components/common/logo'
-import variables from '@/theme/variables'
 
 const Layout = () => {
   const location = useLocation()
@@ -23,7 +21,7 @@ const Layout = () => {
     if (location.pathname === '/') {
       navigate('/connections')
     }
-  }, [location.pathname])
+  }, [location.pathname, navigate])
 
   return (
     <Stack direction="row" spacing={0} height="100vh">

@@ -15,11 +15,10 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import { Spinner, SectionSpinner } from '@koupr/ui'
 import { FiMoreVertical, FiTrash } from 'react-icons/fi'
 import { IoHourglassOutline } from 'react-icons/io5'
 import ActionAPI, { ActionType } from '@/api/action'
-import Spinner from '@/components/common/spinner'
-import FullPageSpinner from '../common/full-page-spinner'
 import CodeField from '../fields/code'
 import Delete from './delete'
 
@@ -55,7 +54,7 @@ const List = ({ type }: ListParams) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
   if (!actions) {
-    return <FullPageSpinner />
+    return <SectionSpinner />
   }
 
   if (actions.length > 0) {

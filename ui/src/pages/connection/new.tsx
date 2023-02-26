@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
 import Create from '@/components/connection/create'
-import variables from '@/theme/variables'
 
 const ConnectionNewPage = () => {
   const navigate = useNavigate()

@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react'
-import { mutate } from 'swr'
 import { Button, Select, Stack } from '@chakra-ui/react'
+import { SectionSpinner, IconPlay } from '@koupr/ui'
+import { mutate } from 'swr'
 import ActionAPI from '@/api/action'
 import ConnectionAPI from '@/api/connection'
-import FullPageSpinner from '@/components/common/full-page-spinner'
-import { IconRun } from '@/components/common/icons'
 
 const Clone = () => {
   const { data: connections } = ConnectionAPI.useGetAll()
@@ -28,7 +27,7 @@ const Clone = () => {
   )
 
   if (!connections) {
-    return <FullPageSpinner />
+    return <SectionSpinner />
   }
 
   return (
@@ -65,7 +64,7 @@ const Clone = () => {
       </Select>
       <Button
         colorScheme="blue"
-        leftIcon={<IconRun fontSize="16px" />}
+        leftIcon={<IconPlay fontSize="16px" />}
         isLoading={loading}
         isDisabled={
           loading ||

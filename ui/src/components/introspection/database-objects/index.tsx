@@ -17,14 +17,12 @@ import {
   AlertIcon,
   CloseButton,
 } from '@chakra-ui/react'
+import { variables, Spinner, IconError, IconPlay } from '@koupr/ui'
 import { FiChevronLeft } from 'react-icons/fi'
 import ConnectionAPI from '@/api/connection'
 import IntrospectAPI from '@/api/introspection'
 import { introspectionSet } from '@/store/entities/introspections'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { IconError, IconRun } from '@/components/common/icons'
-import Spinner from '@/components/common/spinner'
-import variables from '@/theme/variables'
 import Constraints from './constraints'
 import Indexes from './indexes'
 import MaterializedViews from './materialized-views'
@@ -95,7 +93,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
         >
           <Button
             colorScheme="blue"
-            leftIcon={<IconRun fontSize="16px" />}
+            leftIcon={<IconPlay fontSize="16px" />}
             isDisabled={loading}
             onClick={() => handleIntrospect()}
           >

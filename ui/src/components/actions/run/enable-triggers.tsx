@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
-import { mutate } from 'swr'
 import { Button, Select, Stack } from '@chakra-ui/react'
+import { IconPlay } from '@koupr/ui'
+import { mutate } from 'swr'
 import ActionAPI from '@/api/action'
 import ConnectionAPI from '@/api/connection'
-import { IconRun } from '@/components/common/icons'
 
 const EnableTriggers = () => {
   const { data: connections } = ConnectionAPI.useGetAll()
@@ -44,7 +44,7 @@ const EnableTriggers = () => {
       </Select>
       <Button
         colorScheme="blue"
-        leftIcon={<IconRun fontSize="16px" />}
+        leftIcon={<IconPlay fontSize="16px" />}
         isDisabled={loading}
         onClick={() => {
           setInvalid(!connectionId)

@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Center, Heading, Select, Stack } from '@chakra-ui/react'
+import { Box, Button, Heading, Select, Stack } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
+import { SectionSpinner, IconPlay } from '@koupr/ui'
 import { MdOutlineCompareArrows } from 'react-icons/md'
 import ConnectionAPI from '@/api/connection'
 import { refreshInterval } from '@/api/options'
-import { IconRun } from '@/components/common/icons'
-import Spinner from '@/components/common/spinner'
-import variables from '@/theme/variables'
-import FullPageSpinner from '../common/full-page-spinner'
 
 const Comparison = () => {
   const navigate = useNavigate()
@@ -18,7 +16,7 @@ const Comparison = () => {
   const [targetInvalid, setTargetInvalid] = useState<boolean>()
 
   if (!connections) {
-    return <FullPageSpinner />
+    return <SectionSpinner />
   }
 
   return (
@@ -65,7 +63,7 @@ const Comparison = () => {
       <Box>
         <Button
           colorScheme="blue"
-          leftIcon={<IconRun fontSize="16px" />}
+          leftIcon={<IconPlay fontSize="16px" />}
           isDisabled={
             sourceConnectionId &&
             targetConnectionId &&

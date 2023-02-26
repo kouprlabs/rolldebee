@@ -1,6 +1,4 @@
 import { useCallback } from 'react'
-import { Field, FieldAttributes, Form, Formik } from 'formik'
-import * as Yup from 'yup'
 import {
   Heading,
   IconButton,
@@ -16,10 +14,12 @@ import {
   useBoolean,
   FormLabel,
 } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
+import { Field, FieldAttributes, Form, Formik } from 'formik'
+import * as Yup from 'yup'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
 import ConnectionAPI from '@/api/connection'
-import variables from '@/theme/variables'
 
 type CreateProps = {
   onComplete: () => void

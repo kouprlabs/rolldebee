@@ -9,8 +9,8 @@ import {
   AlertDialogOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
 import ConnectionAPI from '@/api/connection'
-import variables from '@/theme/variables'
 
 type DeleteProps = {
   id: string

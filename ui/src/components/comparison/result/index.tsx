@@ -13,16 +13,14 @@ import {
   Text,
   useToken,
 } from '@chakra-ui/react'
+import { variables, IconError, IconPlay, Spinner } from '@koupr/ui'
 import { FiChevronLeft } from 'react-icons/fi'
 import ComparisonAPI from '@/api/comparison'
 import ConnectionAPI from '@/api/connection'
 import { comparisonSet } from '@/store/entities/comparisons'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { IconError, IconRun } from '@/components/common/icons'
-import Spinner from '@/components/common/spinner'
 import TopBar from '@/components/common/top-bar'
 import { Container } from '@/components/layout'
-import variables from '@/theme/variables'
 import List from './list'
 
 type ResultProps = {
@@ -107,7 +105,7 @@ const Result = ({
           button={
             <Button
               colorScheme="blue"
-              leftIcon={<IconRun fontSize="16px" />}
+              leftIcon={<IconPlay fontSize="16px" />}
               isDisabled={loading}
               onClick={() => handleCompare()}
             >

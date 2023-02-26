@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { Box } from '@chakra-ui/react'
+import { variables } from '@koupr/ui'
 import DatabaseObjects from '@/components/introspection/database-objects'
-import variables from '@/theme/variables'
 
 const IntrospectionViewPage = () => {
   const navigate = useNavigate()

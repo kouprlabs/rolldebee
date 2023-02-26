@@ -20,6 +20,6 @@ async function handleFailure(response: Response) {
   } else if (response.statusText) {
     throw response.statusText
   } else {
-    throw `Request failed with status ${response.status}`
+    throw new Error(`Request failed with status ${response.status}`)
   }
 }
