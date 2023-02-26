@@ -8,18 +8,18 @@ Install [Node.js](https://nodejs.org/en/download), preferrably with [NVM](https:
 
 Install dependencies:
 
-```shell script
+```sh
 npm install
 ```
 
 Run for development:
 
-```shell script
+```sh
 npm run dev
 ```
 
 Build Docker image:
 
-```shell
+```sh
 docker build -t rolldebee/ui .
 ```
