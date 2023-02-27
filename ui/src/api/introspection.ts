@@ -39,14 +39,17 @@ export interface Constraint extends DatabaseObject {
 }
 
 export interface Index extends DatabaseObject {
-  indexType: String
-  status: String
+  indexType: string
+  status: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MaterializedView extends DatabaseObject {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface View extends DatabaseObject {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Sequence extends DatabaseObject {}
 
 export interface Source extends DatabaseObject {
