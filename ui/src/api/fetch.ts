@@ -1,7 +1,7 @@
-import settings from '@/infra/settings'
+import { getConfig } from '@/config/config'
 
 export const apiFetch = async (url: string, init?: RequestInit) =>
-  handleFailure(await fetch(`${settings.apiUrl}${url}`, init))
+  handleFailure(await fetch(`${getConfig().apiURL}${url}`, init))
 
 export const apiFetcher = (url: string) =>
   apiFetch(url, {

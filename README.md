@@ -27,13 +27,13 @@ Additional instructions:
 Build Docker images:
 
 ```sh
-docker-compose -f ./docker-compose.prod.yml build
+docker compose -f ./docker-compose.prod.yml build
 ```
 
 Then:
 
 ```sh
-docker-compose -f ./docker-compose.prod.yml up
+docker compose -f ./docker-compose.prod.yml up
 ```
 
 ## Licensing

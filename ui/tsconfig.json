@@ -6,7 +6,7 @@
       "@/components/*": ["src/components/*"],
       "@/api/*": ["src/api/*"],
       "@/store/*": ["src/store/*"],
-      "@/infra/*": ["src/infra/*"],
+      "@/config/*": ["src/config/*"],
       "@/theme/*": ["src/theme/*"],
       "@/styles/*": ["src/styles/*"]
     },
