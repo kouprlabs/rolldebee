@@ -8,4 +8,4 @@ RUN npm install
 
 ENTRYPOINT ["/bin/sh", "-c", "npm run dev"]
 
-EXPOSE 5173
+EXPOSE 3000
