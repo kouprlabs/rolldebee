@@ -8,8 +8,6 @@
 
 ## Getting Started
 
-Install [Docker](https://docs.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install).
-
 ### Run for Development
 
 Start infrastructure services:

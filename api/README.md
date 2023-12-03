@@ -1,14 +1,6 @@
 # Rolldebee API
 
-## Getting Started
-
 Install [klint](https://ktlint.github.io).
-
-For macOS:
-
-```shell
-brew install ktlint
-```
 
 Format code:
 
@@ -16,7 +8,7 @@ Format code:
 ktlint --format
 ```
 
-Run:
+Run for development:
 
 ```shell
 ./gradlew bootRun
