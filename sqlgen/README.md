@@ -1,7 +1,5 @@
 # Rolldebee SQL Generator
 
-## Getting Started
-
 Build and run with Docker:
 
 ```shell
