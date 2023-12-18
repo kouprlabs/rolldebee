@@ -38,4 +38,4 @@ docker-compose -f ./docker-compose.prod.yml up
 
 ## Licensing
 
-Rolldebee is released under the [The MIT License](./LICENSE).
+Rolldebee is released under the [GNU Affero General Public License](./LICENSE).
