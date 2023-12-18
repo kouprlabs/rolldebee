@@ -2,14 +2,11 @@ version: "3.7"
 
 volumes:
   db:
-    name: rolldebee-db
   oradata:
-    name: oradata
 
 services:
   db:
     image: postgres:14
-    container_name: db
     ports:
       - "5432:5432"
     environment:
@@ -19,7 +16,6 @@ services:
       - db:/var/lib/postgresql/data
   oracle:
     image: container-registry.oracle.com/database/express:21.3.0-xe
-    container_name: oracle
     ports:
       - "1521:1521"
     environment:
@@ -29,7 +25,6 @@ services:
       - ./db/oracle:/opt/oracle/scripts/startup
   adminer:
     image: adminer:4.8.1
-    container_name: adminer
     ports:
       - 9090:8080
   api:
