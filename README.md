@@ -8,33 +8,21 @@
 
 ## Getting Started
 
-### Run for Development
+Build:
 
-Start infrastructure services:
-
-```sh
-docker compose up
+```shell
+docker compose build
 ```
 
-Additional instructions:
+Run:
 
-- [Rolldebee API](api/README.md)
-- [Rolldebee UI](ui/README.md)
-- [Rolldebee SQL Generator](sqlgen/README.md)
-
-### Run for Production
-
-Build Docker images:
-
-```sh
-docker-compose -f ./docker-compose.prod.yml build
+```shell
+docker compose up -d
 ```
 
-Then:
+## Development
 
-```sh
-docker-compose -f ./docker-compose.prod.yml up
-```
+To setup a development environment for the purpose of developing and debugging Rolldebee, please read the development documentation available [here](DEVELOPMENT.md).
 
 ## Licensing
 
