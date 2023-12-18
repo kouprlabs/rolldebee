@@ -8,8 +8,8 @@ volumes:
 
 services:
   db:
-    container_name: rolldebee-db
     image: postgres:14
+    container_name: db
     ports:
       - "5432:5432"
     environment:
@@ -18,8 +18,8 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
   oracle:
-    container_name: oracle
     image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle
     ports:
       - "1521:1521"
     environment:
@@ -28,12 +28,11 @@ services:
       - oradata:/opt/oracle/oradata
       - ./db/oracle:/opt/oracle/scripts/startup
   adminer:
-    container_name: rolldebee-adminer
     image: adminer:4.8.1
+    container_name: adminer
     ports:
       - 9090:8080
   api:
-    container_name: rolldebee-api
     image: gradle:jdk17
     working_dir: /app
     command: sh -c "./gradlew bootRun"
@@ -50,7 +49,6 @@ services:
       - db
       - oracle
   ui:
-    container_name: rolldebee-ui
     image: node:18-alpine
     working_dir: /app
     command: sh -c "npm i && npm run dev"
