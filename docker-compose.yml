@@ -22,7 +22,7 @@ services:
       - ORACLE_PWD=oracle
     volumes:
       - oradata:/opt/oracle/oradata
-      - ./db/oracle:/opt/oracle/scripts/startup
+      - ./sql/oracle:/opt/oracle/scripts/startup
   adminer:
     image: adminer:4.8.1
     ports:
