@@ -4,6 +4,8 @@
   <h1 align="center">Rolldebee</h1>
 </p>
 
+Rolldebee brings the power of CI/CD to the database. Setting up a local sandbox or synchronizing two environments is just a few of clicks away, it can be further automated by invoking Rolldebee's REST APIs from your favourite CI server.
+
 ![](./assets/screencast.gif)
 
 ## Getting Started
