@@ -15,7 +15,7 @@ import {
   FormLabel,
 } from '@chakra-ui/react'
 import { variables } from '@koupr/ui'
-import { Field, FieldAttributes, Form, Formik } from 'formik'
+import { Field, FieldAttributes, Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
@@ -24,6 +24,14 @@ import ConnectionAPI from '@/api/connection'
 type CreateProps = {
   onComplete: () => void
   onDismiss: () => void
+}
+
+type FormValues = {
+  name: string
+  jdbcUrl: string
+  jdbcUsername: string
+  jdbcPassword: string
+  databaseType: string
 }
 
 const Create = ({ onComplete, onDismiss }: CreateProps) => {
@@ -39,7 +47,7 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
   })
 
   const handleSubmit = useCallback(
-    async (values, { setSubmitting }) => {
+    async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
       setSubmitting(true)
       try {
         await ConnectionAPI.create({
