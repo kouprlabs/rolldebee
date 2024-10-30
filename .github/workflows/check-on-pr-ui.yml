@@ -1,4 +1,4 @@
-name: Lint and build rolldebee/ui
+name: Lint rolldebee/ui
 
 on:
   pull_request:
