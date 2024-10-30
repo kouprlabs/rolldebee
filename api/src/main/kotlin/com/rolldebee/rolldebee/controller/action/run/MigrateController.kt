@@ -7,6 +7,8 @@ import com.rolldebee.rolldebee.entity.ActionType
 import com.rolldebee.rolldebee.factory.*
 import com.rolldebee.rolldebee.repository.ConnectionRepository
 import com.rolldebee.rolldebee.service.ActionService
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import jakarta.validation.Valid
-import jakarta.validation.constraints.NotBlank
 
 @OptIn(DelicateCoroutinesApi::class)
 @RestController
@@ -35,7 +35,9 @@ class MigrateController(
     )
 
     @PostMapping("start/")
-    fun migrate(@Valid @RequestBody body: MigrateOptions): Action {
+    fun migrate(
+        @Valid @RequestBody body: MigrateOptions,
+    ): Action {
         val actionId = actionService.create(ActionType.MIGRATE, jacksonObjectMapper().writeValueAsString(body))
         GlobalScope.launch {
             try {

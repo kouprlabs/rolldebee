@@ -9,8 +9,13 @@ import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service
 
 @Service
-class RedObjectDropper(val jdbcTemplateBuilder: JdbcTemplateBuilder) : ObjectDropper {
-    override fun run(objectRoute: ObjectRoute, connection: Connection): ObjectDropSummary {
+class RedObjectDropper(
+    val jdbcTemplateBuilder: JdbcTemplateBuilder,
+) : ObjectDropper {
+    override fun run(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): ObjectDropSummary {
         val succeeded = ArrayList<DatabaseObject>()
         val failed = ArrayList<ObjectDropSummary.Failure>()
         val jdbcTemplate = jdbcTemplateBuilder.build(connection)
@@ -19,7 +24,11 @@ class RedObjectDropper(val jdbcTemplateBuilder: JdbcTemplateBuilder) : ObjectDro
                 jdbcTemplate.jdbcOperations.execute(databaseObject.dropDdl)
                 succeeded.add(databaseObject)
             } catch (e: Exception) {
-                val reason = e.cause.toString().replace("java.sql.SQLSyntaxErrorException: ", "").replace("\n", "")
+                val reason =
+                    e.cause
+                        .toString()
+                        .replace("java.sql.SQLSyntaxErrorException: ", "")
+                        .replace("\n", "")
                 failed.add(ObjectDropSummary.Failure(databaseObject = databaseObject, reason = reason))
             }
         }

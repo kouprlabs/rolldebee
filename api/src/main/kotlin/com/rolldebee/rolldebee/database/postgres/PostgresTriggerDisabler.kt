@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostgresTriggerDisabler : TriggerDisabler {
-    override fun run(connection: Connection): DisableTriggerSummary {
-        throw NotImplementedError()
-    }
+    override fun run(connection: Connection): DisableTriggerSummary = throw NotImplementedError()
 }

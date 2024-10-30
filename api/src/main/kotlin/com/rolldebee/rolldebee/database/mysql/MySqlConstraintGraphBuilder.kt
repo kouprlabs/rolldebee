@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlConstraintGraphBuilder : ConstraintGraphBuilder {
-    override fun build(jdbcTemplate: NamedParameterJdbcTemplate): ConstraintGraph {
-        throw NotImplementedError()
-    }
+    override fun build(jdbcTemplate: NamedParameterJdbcTemplate): ConstraintGraph = throw NotImplementedError()
 }

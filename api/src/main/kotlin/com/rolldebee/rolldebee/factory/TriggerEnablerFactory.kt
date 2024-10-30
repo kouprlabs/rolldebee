@@ -14,8 +14,8 @@ class TriggerEnablerFactory(
     val mySqlTriggerEnabler: MySqlTriggerEnabler,
     val redTriggerEnabler: RedTriggerEnabler,
 ) {
-    fun get(connection: Connection): TriggerEnabler {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): TriggerEnabler =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresTriggerEnabler
             }
@@ -29,5 +29,4 @@ class TriggerEnablerFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

@@ -2,11 +2,11 @@ package com.rolldebee.rolldebee.controller
 
 import com.rolldebee.rolldebee.factory.*
 import com.rolldebee.rolldebee.repository.ConnectionRepository
+import jakarta.validation.constraints.NotBlank
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import jakarta.validation.constraints.NotBlank
 
 @RestController
 @RequestMapping("migration_scripts")
@@ -24,7 +24,9 @@ class MigrationScriptController(
     )
 
     @PostMapping(produces = ["text/plain"])
-    fun create(@RequestBody body: Options): String {
+    fun create(
+        @RequestBody body: Options,
+    ): String {
         val sourceConnection = connectionRepository.findById(body.sourceConnectionId).get()
         val targetConnection = connectionRepository.findById(body.targetConnectionId).get()
         val sourceIntrospection = introspectionBuilderFactory.get(sourceConnection).build(sourceConnection)

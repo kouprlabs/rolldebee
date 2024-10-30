@@ -31,7 +31,7 @@ class RedObjectRouteBuilder : ObjectRouteBuilder {
     private fun append(
         node: ObjectGraph.Node,
         nodes: ArrayList<ObjectGraph.Node>,
-        crossed: ArrayList<ObjectGraph.Node>
+        crossed: ArrayList<ObjectGraph.Node>,
     ) {
         if (nodes.contains(node)) {
             return

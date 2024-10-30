@@ -1,7 +1,7 @@
 package com.rolldebee.rolldebee.database.red
 
-import com.rolldebee.rolldebee.core.DisableConstraintSummary
 import com.rolldebee.rolldebee.core.ConstraintDisabler
+import com.rolldebee.rolldebee.core.DisableConstraintSummary
 import com.rolldebee.rolldebee.entity.Connection
 import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service
@@ -22,16 +22,17 @@ class RedConstraintDisabler(
                 jdbcTemplate.jdbcOperations.execute("alter table ${constraint.tableName} disable constraint ${constraint.name}")
                 summary.successes.add(
                     DisableConstraintSummary.Success(
-                        tableName = constraint.tableName, constraintName = constraint.name
-                    )
+                        tableName = constraint.tableName,
+                        constraintName = constraint.name,
+                    ),
                 )
             } catch (e: Exception) {
                 summary.failures.add(
                     DisableConstraintSummary.Failure(
                         tableName = constraint.tableName,
                         constraintName = constraint.name,
-                        reason = e.message.toString()
-                    )
+                        reason = e.message.toString(),
+                    ),
                 )
             }
         }

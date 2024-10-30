@@ -10,7 +10,10 @@ class RedComparisonBuilder(
     val objectRouteService: RedObjectRouteBuilder,
     val objectGraphService: RedObjectGraphBuilder,
 ) : ComparisonBuilder {
-    override fun build(objectRoute: ObjectRoute, connection: Connection): Comparison {
+    override fun build(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): Comparison {
         val diffs = ArrayList<Comparison.Diff>()
         val targetIntrospection = introspectionService.build(connection)
         val targetGraph = objectGraphService.build(targetIntrospection, connection)
@@ -23,19 +26,20 @@ class RedComparisonBuilder(
                     Comparison.Diff(
                         databaseObject = sourceDatabaseObject,
                         type = Comparison.DiffType.ADDED,
-                        ddls = listOf(sourceDatabaseObject.diffDdl(Verb.CREATE))
-                    )
+                        ddls = listOf(sourceDatabaseObject.diffDdl(Verb.CREATE)),
+                    ),
                 )
             } else if (targetMatch.ddl != sourceDatabaseObject.ddl) {
                 diffs.add(
                     Comparison.Diff(
                         databaseObject = sourceDatabaseObject,
                         type = Comparison.DiffType.MODIFIED,
-                        ddls = when (sourceDatabaseObject.objectType) {
-                            "TABLE" -> (sourceDatabaseObject as Table).diffDdl(targetMatch as Table)
-                            else -> listOf(sourceDatabaseObject.diffDdl(Verb.REPLACE))
-                        }
-                    )
+                        ddls =
+                            when (sourceDatabaseObject.objectType) {
+                                "TABLE" -> (sourceDatabaseObject as Table).diffDdl(targetMatch as Table)
+                                else -> listOf(sourceDatabaseObject.diffDdl(Verb.REPLACE))
+                            },
+                    ),
                 )
             }
         }
@@ -45,8 +49,8 @@ class RedComparisonBuilder(
                     Comparison.Diff(
                         databaseObject = targetDatabaseObject,
                         type = Comparison.DiffType.DELETED,
-                        ddls = listOf(targetDatabaseObject.diffDdl(Verb.DROP))
-                    )
+                        ddls = listOf(targetDatabaseObject.diffDdl(Verb.DROP)),
+                    ),
                 )
             }
         }
@@ -76,15 +80,16 @@ class RedComparisonBuilder(
         return ddl
     }
 
-    private fun DatabaseObject.diffDdl(verb: Verb): String {
-        return when (verb) {
+    private fun DatabaseObject.diffDdl(verb: Verb): String =
+        when (verb) {
             Verb.CREATE -> this.ddl
             Verb.DROP -> this.dropDdl
             Verb.REPLACE -> this.ddl.replaceFirst("CREATE", "CREATE OR REPLACE")
         }
-    }
 
     enum class Verb {
-        DROP, REPLACE, CREATE
+        DROP,
+        REPLACE,
+        CREATE,
     }
 }

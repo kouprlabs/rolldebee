@@ -24,8 +24,9 @@ class RedTriggerEnabler(
                 } catch (e: Exception) {
                     summary.failures.add(
                         EnableTriggerSummary.Failure(
-                            name = source.name, reason = e.message.toString()
-                        )
+                            name = source.name,
+                            reason = e.message.toString(),
+                        ),
                     )
                 }
             }

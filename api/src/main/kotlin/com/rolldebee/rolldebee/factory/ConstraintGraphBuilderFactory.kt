@@ -14,8 +14,8 @@ class ConstraintGraphBuilderFactory(
     val mySqlConstraintGraphBuilder: MySqlConstraintGraphBuilder,
     val redConstraintGraphBuilder: RedConstraintGraphBuilder,
 ) {
-    fun get(connection: Connection): ConstraintGraphBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ConstraintGraphBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresConstraintGraphBuilder
             }
@@ -29,5 +29,4 @@ class ConstraintGraphBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

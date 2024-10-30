@@ -8,6 +8,8 @@ import com.rolldebee.rolldebee.factory.IntrospectionBuilderFactory
 import com.rolldebee.rolldebee.factory.TriggerDisablerFactory
 import com.rolldebee.rolldebee.repository.ConnectionRepository
 import com.rolldebee.rolldebee.service.ActionService
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import jakarta.validation.Valid
-import jakarta.validation.constraints.NotBlank
 
 @OptIn(DelicateCoroutinesApi::class)
 @RestController
@@ -27,10 +27,14 @@ class DisableTriggersController(
     val connectionRepository: ConnectionRepository,
     val actionService: ActionService,
 ) {
-    data class DisableTriggersOptions(@field:NotBlank val connectionId: String)
+    data class DisableTriggersOptions(
+        @field:NotBlank val connectionId: String,
+    )
 
     @PostMapping
-    fun run(@Valid @RequestBody body: DisableTriggersOptions): Action {
+    fun run(
+        @Valid @RequestBody body: DisableTriggersOptions,
+    ): Action {
         val actionId = actionService.create(ActionType.DISABLE_TRIGGERS, jacksonObjectMapper().writeValueAsString(body))
         GlobalScope.launch {
             try {

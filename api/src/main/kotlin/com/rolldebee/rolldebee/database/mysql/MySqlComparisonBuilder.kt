@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlComparisonBuilder : ComparisonBuilder {
-    override fun build(objectRoute: ObjectRoute, connection: Connection): Comparison {
-        throw NotImplementedError()
-    }
+    override fun build(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): Comparison = throw NotImplementedError()
 }

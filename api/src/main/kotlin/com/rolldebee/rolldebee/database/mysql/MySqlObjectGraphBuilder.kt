@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlObjectGraphBuilder : ObjectGraphBuilder {
-    override fun build(introspection: Introspection, connection: Connection): ObjectGraph {
-        throw NotImplementedError()
-    }
+    override fun build(
+        introspection: Introspection,
+        connection: Connection,
+    ): ObjectGraph = throw NotImplementedError()
 }

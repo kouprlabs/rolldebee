@@ -14,8 +14,8 @@ class IntrospectionBuilderFactory(
     val mySqlIntrospectionBuilder: MySqlIntrospectionBuilder,
     val redIntrospectionBuilder: RedIntrospectionBuilder,
 ) {
-    fun get(connection: Connection): IntrospectionBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): IntrospectionBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresIntrospectionBuilder
             }
@@ -29,5 +29,4 @@ class IntrospectionBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

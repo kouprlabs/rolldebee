@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service
 @Service
 class ConstrainIntrospectionBuilder {
     fun build(jdbcTemplate: NamedParameterJdbcTemplate): List<Constraint> {
-        val rows = jdbcTemplate.query(
-            """select constraint_name,
+        val rows =
+            jdbcTemplate.query(
+                """select constraint_name,
                        constraint_type,
                        table_name,
                        r_constraint_name,
@@ -20,18 +21,18 @@ class ConstrainIntrospectionBuilder {
                          else to_clob('') end as ddl
                 from user_constraints
                        where constraint_name not like 'BIN$%'
-            """
-        ) { resultSet, _ ->
-            Row(
-                constraintName = resultSet.getString("CONSTRAINT_NAME"),
-                constraintType = resultSet.getString("CONSTRAINT_TYPE"),
-                tableName = resultSet.getString("TABLE_NAME"),
-                status = resultSet.getString("STATUS"),
-                validated = resultSet.getString("VALIDATED"),
-                refConstraintName = resultSet.getString("R_CONSTRAINT_NAME"),
-                ddl = resultSet.getString("DDL").trim(),
-            )
-        }
+            """,
+            ) { resultSet, _ ->
+                Row(
+                    constraintName = resultSet.getString("CONSTRAINT_NAME"),
+                    constraintType = resultSet.getString("CONSTRAINT_TYPE"),
+                    tableName = resultSet.getString("TABLE_NAME"),
+                    status = resultSet.getString("STATUS"),
+                    validated = resultSet.getString("VALIDATED"),
+                    refConstraintName = resultSet.getString("R_CONSTRAINT_NAME"),
+                    ddl = resultSet.getString("DDL").trim(),
+                )
+            }
         return rows.map {
             Constraint(
                 name = it.constraintName,
@@ -42,10 +43,11 @@ class ConstrainIntrospectionBuilder {
                 refConstraintName = it.refConstraintName,
                 ddl = it.ddl,
                 dropDdl = "ALTER TABLE ${it.tableName} DROP CONSTRAINT ${it.constraintName} CASCADE",
-                objectType = when (it.constraintType) {
-                    "R" -> "REF_CONSTRAINT"
-                    else -> "CONSTRAINT"
-                }
+                objectType =
+                    when (it.constraintType) {
+                        "R" -> "REF_CONSTRAINT"
+                        else -> "CONSTRAINT"
+                    },
             )
         }
     }

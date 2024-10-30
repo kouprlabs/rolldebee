@@ -14,8 +14,8 @@ class ClonerFactory(
     val mySqlCloner: MySqlCloner,
     val redCloner: RedCloner,
 ) {
-    fun get(connection: Connection): Cloner {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): Cloner =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresCloner
             }
@@ -29,5 +29,4 @@ class ClonerFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

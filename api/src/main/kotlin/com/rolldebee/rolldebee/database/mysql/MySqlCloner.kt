@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlCloner : Cloner {
-    override fun run(objectRoute: ObjectRoute, connection: Connection): CloningSummary {
-        throw NotImplementedError()
-    }
+    override fun run(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): CloningSummary = throw NotImplementedError()
 }

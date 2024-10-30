@@ -24,8 +24,9 @@ class RedTriggerDisabler(
                 } catch (e: Exception) {
                     summary.failures.add(
                         DisableTriggerSummary.Failure(
-                            name = source.name, reason = e.message.toString()
-                        )
+                            name = source.name,
+                            reason = e.message.toString(),
+                        ),
                     )
                 }
             }

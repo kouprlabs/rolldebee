@@ -3,12 +3,14 @@ package com.rolldebee.rolldebee.controller
 import com.rolldebee.rolldebee.entity.Connection
 import com.rolldebee.rolldebee.infra.uuid
 import com.rolldebee.rolldebee.repository.ConnectionRepository
-import org.springframework.web.bind.annotation.*
 import jakarta.validation.constraints.NotBlank
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("connections")
-class ConnectionController(val repository: ConnectionRepository) {
+class ConnectionController(
+    val repository: ConnectionRepository,
+) {
     data class CreateOptions(
         @NotBlank val name: String,
         @NotBlank val jdbcUrl: String,
@@ -18,7 +20,9 @@ class ConnectionController(val repository: ConnectionRepository) {
     )
 
     @PostMapping
-    fun create(@RequestBody body: CreateOptions): Connection {
+    fun create(
+        @RequestBody body: CreateOptions,
+    ): Connection {
         val id = uuid()
         repository.save(
             Connection(
@@ -28,23 +32,23 @@ class ConnectionController(val repository: ConnectionRepository) {
                 jdbcUsername = body.jdbcUsername,
                 jdbcPassword = body.jdbcPassword,
                 databaseType = body.databaseType,
-            )
+            ),
         )
         return repository.findById(id).get()
     }
 
     @GetMapping
-    suspend fun getAll(): List<Connection> {
-        return repository.findAll()
-    }
+    suspend fun getAll(): List<Connection> = repository.findAll()
 
     @GetMapping("{id}")
-    fun getById(@PathVariable id: String): Connection {
-        return repository.findById(id).get()
-    }
+    fun getById(
+        @PathVariable id: String,
+    ): Connection = repository.findById(id).get()
 
     @DeleteMapping("{id}")
-    fun delete(@PathVariable id: String) {
+    fun delete(
+        @PathVariable id: String,
+    ) {
         repository.delete(repository.findById(id).get())
     }
 
@@ -56,7 +60,10 @@ class ConnectionController(val repository: ConnectionRepository) {
     )
 
     @PatchMapping("{id}")
-    fun update(@PathVariable id: String, @RequestBody body: UpdateOptions): Connection {
+    fun update(
+        @PathVariable id: String,
+        @RequestBody body: UpdateOptions,
+    ): Connection {
         val connection = repository.findById(id).get()
         connection.name = body.name
         connection.jdbcUrl = body.jdbcUrl

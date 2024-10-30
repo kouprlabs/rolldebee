@@ -14,8 +14,8 @@ class MigratorFactory(
     val mySqlMigrator: MySqlMigrator,
     val redMigrator: RedMigrator,
 ) {
-    fun get(connection: Connection): Migrator {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): Migrator =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresMigrator
             }
@@ -29,5 +29,4 @@ class MigratorFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

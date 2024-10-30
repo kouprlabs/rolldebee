@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlObjectDropper : ObjectDropper {
-    override fun run(objectRoute: ObjectRoute, connection: Connection): ObjectDropSummary {
-        throw NotImplementedError()
-    }
+    override fun run(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): ObjectDropSummary = throw NotImplementedError()
 }

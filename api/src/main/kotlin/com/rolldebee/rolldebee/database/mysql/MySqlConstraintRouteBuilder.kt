@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlConstraintRouteBuilder : ConstraintRouteBuilder {
-    override fun build(constraintGraph: ConstraintGraph): ConstraintRoute {
-        throw NotImplementedError()
-    }
+    override fun build(constraintGraph: ConstraintGraph): ConstraintRoute = throw NotImplementedError()
 }

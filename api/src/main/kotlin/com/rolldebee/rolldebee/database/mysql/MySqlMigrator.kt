@@ -8,8 +8,11 @@ import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service
 
 @Service
-class MySqlMigrator(val jdbcTemplateBuilder: JdbcTemplateBuilder) : Migrator {
-    override fun run(comparison: Comparison, connection: Connection): MigrationSummary {
-        throw NotImplementedError()
-    }
+class MySqlMigrator(
+    val jdbcTemplateBuilder: JdbcTemplateBuilder,
+) : Migrator {
+    override fun run(
+        comparison: Comparison,
+        connection: Connection,
+    ): MigrationSummary = throw NotImplementedError()
 }

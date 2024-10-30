@@ -10,6 +10,8 @@ import com.rolldebee.rolldebee.factory.ObjectGraphBuilderFactory
 import com.rolldebee.rolldebee.factory.ObjectRouteBuilderFactory
 import com.rolldebee.rolldebee.repository.ConnectionRepository
 import com.rolldebee.rolldebee.service.ActionService
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import jakarta.validation.Valid
-import jakarta.validation.constraints.NotBlank
 
 @OptIn(DelicateCoroutinesApi::class)
 @RestController
@@ -37,7 +37,9 @@ class CloneController(
     )
 
     @PostMapping
-    fun run(@Valid @RequestBody body: CloneOptions): Action {
+    fun run(
+        @Valid @RequestBody body: CloneOptions,
+    ): Action {
         val actionId = actionService.create(ActionType.CLONE, jacksonObjectMapper().writeValueAsString(body))
         GlobalScope.launch {
             try {
