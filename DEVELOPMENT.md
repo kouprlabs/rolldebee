@@ -5,10 +5,7 @@
 ### Run Infrastructure Services With Docker
 
 ```shell
-docker compose up -d \
-    db \
-    oracle \
-    adminer
+docker compose up -d db oracle
 ```
 
 ### Run Microservices
