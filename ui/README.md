@@ -3,13 +3,13 @@
 Install dependencies:
 
 ```sh
-npm install
+bun i
 ```
 
 Run for development:
 
 ```sh
-npm run dev
+bun run dev
 ```
 
 Build Docker image:
