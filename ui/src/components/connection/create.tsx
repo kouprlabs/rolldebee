@@ -47,7 +47,10 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
   })
 
   const handleSubmit = useCallback(
-    async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+    async (
+      values: FormValues,
+      { setSubmitting }: FormikHelpers<FormValues>,
+    ) => {
       setSubmitting(true)
       try {
         await ConnectionAPI.create({
@@ -69,7 +72,7 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
         setSubmitting(false)
       }
     },
-    [toast, onComplete]
+    [toast, onComplete],
   )
 
   return (

@@ -76,7 +76,7 @@ const Comparison = () => {
             setTargetInvalid(!targetConnectionId)
             if (sourceConnectionId && targetConnectionId) {
               navigate(
-                `/comparison/${sourceConnectionId}/${targetConnectionId}`
+                `/comparison/${sourceConnectionId}/${targetConnectionId}`,
               )
             }
           }}

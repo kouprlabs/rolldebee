@@ -40,7 +40,7 @@ const Result = ({
     (state) =>
       state.entities.comparisons.items[
         `${sourceConnectionId}:${targetConnectionId}`
-      ]
+      ],
   )
   const [loading, setLoading] = useState(false)
   const { data: sourceConnection } =
@@ -63,7 +63,7 @@ const Result = ({
         comparisonSet({
           key: `${sourceConnectionId}:${targetConnectionId}`,
           value: comparison,
-        })
+        }),
       )
       setFailed(false)
     } catch {

@@ -9,7 +9,7 @@ type SequencesProps = {
 const Sequences = ({ connectionId }: SequencesProps) => {
   const sequences = useAppSelector(
     (state) =>
-      state.entities.introspections.items[connectionId]?.sequences || []
+      state.entities.introspections.items[connectionId]?.sequences || [],
   )
   if (sequences && sequences.length > 0) {
     return (

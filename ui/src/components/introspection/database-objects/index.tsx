@@ -40,7 +40,7 @@ type DatabaseObjectsProps = {
 const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
   const dispatch = useAppDispatch()
   const introspection = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]
+    (state) => state.entities.introspections.items[connectionId],
   )
   const { data: connection } = ConnectionAPI.useGetById(connectionId)
   const [loading, setLoading] = useState(false)

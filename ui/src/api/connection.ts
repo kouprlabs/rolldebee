@@ -35,7 +35,7 @@ export default class ConnectionAPI {
     return useSWR<Connection>(
       id ? `/connections/${id}` : null,
       apiFetcher,
-      swrOptions
+      swrOptions,
     )
   }
 

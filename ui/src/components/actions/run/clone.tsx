@@ -23,7 +23,7 @@ const Clone = () => {
         setLoading(false)
       }
     },
-    []
+    [],
   )
 
   if (!connections) {

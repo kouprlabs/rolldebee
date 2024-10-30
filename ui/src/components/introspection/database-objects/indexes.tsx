@@ -23,7 +23,7 @@ type IndexesProps = {
 
 const Indexes = ({ connectionId }: IndexesProps) => {
   const indexes = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]?.indexes || []
+    (state) => state.entities.introspections.items[connectionId]?.indexes || [],
   )
   if (indexes && indexes.length > 0) {
     return (

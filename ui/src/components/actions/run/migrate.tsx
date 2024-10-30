@@ -23,7 +23,7 @@ const Migrate = () => {
         setLoading(false)
       }
     },
-    []
+    [],
   )
 
   if (!connections) {

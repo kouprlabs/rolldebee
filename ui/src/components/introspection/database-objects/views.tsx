@@ -8,7 +8,7 @@ type ViewsProps = {
 
 const Views = ({ connectionId }: ViewsProps) => {
   const views = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]?.views || []
+    (state) => state.entities.introspections.items[connectionId]?.views || [],
   )
   if (views && views.length > 0) {
     return (

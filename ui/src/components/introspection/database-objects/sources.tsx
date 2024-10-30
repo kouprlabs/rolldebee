@@ -19,7 +19,7 @@ type ViewsProps = {
 
 const Sources = ({ connectionId }: ViewsProps) => {
   const sources = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]?.sources || []
+    (state) => state.entities.introspections.items[connectionId]?.sources || [],
   )
   const [red500] = useToken('colors', ['red.500'])
   const [green500] = useToken('colors', ['green.500'])

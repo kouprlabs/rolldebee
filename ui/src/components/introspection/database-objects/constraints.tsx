@@ -24,7 +24,7 @@ type ConstraintsProps = {
 const Constraints = ({ connectionId }: ConstraintsProps) => {
   const constraints = useAppSelector(
     (state) =>
-      state.entities.introspections.items[connectionId]?.constraints || []
+      state.entities.introspections.items[connectionId]?.constraints || [],
   )
   if (constraints && constraints.length > 0) {
     return (

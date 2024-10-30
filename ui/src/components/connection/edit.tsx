@@ -66,7 +66,7 @@ const Edit = ({ id }: EditProps) => {
         setSubmitting(false)
       }
     },
-    [id, toast, navigate]
+    [id, toast, navigate],
   )
 
   if (!connection) {
