@@ -8,8 +8,13 @@ import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service
 
 @Service
-class RedMigrator(val jdbcTemplateBuilder: JdbcTemplateBuilder) : Migrator {
-    override fun run(comparison: Comparison, connection: Connection): MigrationSummary {
+class RedMigrator(
+    val jdbcTemplateBuilder: JdbcTemplateBuilder,
+) : Migrator {
+    override fun run(
+        comparison: Comparison,
+        connection: Connection,
+    ): MigrationSummary {
         val succeeded = ArrayList<Comparison.Diff>()
         val failure = ArrayList<MigrationSummary.Failure>()
         val jdbcTemplate = jdbcTemplateBuilder.build(connection)
@@ -19,9 +24,11 @@ class RedMigrator(val jdbcTemplateBuilder: JdbcTemplateBuilder) : Migrator {
                 try {
                     jdbcTemplate.jdbcOperations.execute(ddl)
                 } catch (e: Exception) {
-                    val reason = e.cause.toString()
-                        .replace("java.sql.SQLSyntaxErrorException: ", "")
-                        .replace("\n", "")
+                    val reason =
+                        e.cause
+                            .toString()
+                            .replace("java.sql.SQLSyntaxErrorException: ", "")
+                            .replace("\n", "")
 
                     // Object does not exist
                     if (reason.contains("ORA-04043") && ddl.contains("DROP")) {

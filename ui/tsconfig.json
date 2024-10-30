@@ -2,13 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/pages/*": ["src/pages/*"],
-      "@/components/*": ["src/components/*"],
-      "@/api/*": ["src/api/*"],
-      "@/store/*": ["src/store/*"],
-      "@/infra/*": ["src/infra/*"],
-      "@/theme/*": ["src/theme/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/*": ["src/*"]
     },
     "preserveSymlinks": true,
     "target": "ESNext",

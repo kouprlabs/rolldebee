@@ -9,21 +9,22 @@ import org.springframework.stereotype.Service
 class TableIntrospectionBuilder {
     fun build(jdbcTemplate: NamedParameterJdbcTemplate): List<Table> {
         val tables = ArrayList<Table>()
-        val rows: List<TableRow> = jdbcTemplate.query(
-            """select ut.table_name,
+        val rows: List<TableRow> =
+            jdbcTemplate.query(
+                """select ut.table_name,
                        utc.comments,
                        dbms_metadata.get_ddl('TABLE', ut.table_name) as ddl
                 from user_tables ut
                        inner join user_tab_comments utc on ut.table_name = utc.table_name
                 where ut.table_name not like 'BIN$%'
-            """
-        ) { resultSet, _ ->
-            TableRow(
-                name = resultSet.getString("TABLE_NAME"),
-                comments = resultSet.getString("COMMENTS"),
-                ddl = resultSet.getString("DDL").trim(),
-            )
-        }
+            """,
+            ) { resultSet, _ ->
+                TableRow(
+                    name = resultSet.getString("TABLE_NAME"),
+                    comments = resultSet.getString("COMMENTS"),
+                    ddl = resultSet.getString("DDL").trim(),
+                )
+            }
         rows.forEach {
             tables.add(
                 Table(
@@ -31,7 +32,7 @@ class TableIntrospectionBuilder {
                     comments = it.comments,
                     ddl = it.ddl,
                     dropDdl = "DROP TABLE ${it.name} CASCADE CONSTRAINTS",
-                )
+                ),
             )
         }
         val columns = introspectColumnRows(jdbcTemplate)
@@ -39,8 +40,8 @@ class TableIntrospectionBuilder {
         return tables
     }
 
-    private fun introspectColumnRows(jdbcTemplate: NamedParameterJdbcTemplate): List<ColumnRow> {
-        return jdbcTemplate.query(
+    private fun introspectColumnRows(jdbcTemplate: NamedParameterJdbcTemplate): List<ColumnRow> =
+        jdbcTemplate.query(
             """select utc.table_name,
                        utc.column_name,
                        utc.data_type,
@@ -55,7 +56,7 @@ class TableIntrospectionBuilder {
                        left join user_col_comments ucc
                                  on utc.table_name = ucc.table_name and utc.column_name = ucc.column_name
                 order by table_name desc
-            """
+            """,
         ) { resultSet, _ ->
             ColumnRow(
                 tableName = resultSet.getString("table_name"),
@@ -66,12 +67,14 @@ class TableIntrospectionBuilder {
                 dataType = resultSet.getString("data_type"),
                 nullable = resultSet.getString("nullable") == "Y",
                 columnId = resultSet.getLong("column_id"),
-                comments = resultSet.getString("comments")
+                comments = resultSet.getString("comments"),
             )
         }
-    }
 
-    private fun addColumnsToTables(columns: List<ColumnRow>, tables: List<Table>) {
+    private fun addColumnsToTables(
+        columns: List<ColumnRow>,
+        tables: List<Table>,
+    ) {
         columns.forEach {
             val table = tables.find { table -> table.name == it.tableName }
             if (table != null) {
@@ -87,18 +90,24 @@ class TableIntrospectionBuilder {
                         dataScale = it.dataScale,
                         nullable = it.nullable,
                         comments = it.comments,
-                        ddl = columnDdl(table.ddl, it.columnName)
-                    )
+                        ddl = columnDdl(table.ddl, it.columnName),
+                    ),
                 )
                 table.columns = list
             }
         }
     }
 
-    private fun columnDdl(tableDdl: String, columnName: String): String {
-        return tableDdl.substring(tableDdl.indexOfFirst { it == '(' } + 1, tableDdl.indexOfLast { it == ')' })
-            .split("\n").map { it.trim().trimEnd(',') }.filter { it.isNotEmpty() }.find { it.contains(columnName) }!!
-    }
+    private fun columnDdl(
+        tableDdl: String,
+        columnName: String,
+    ): String =
+        tableDdl
+            .substring(tableDdl.indexOfFirst { it == '(' } + 1, tableDdl.indexOfLast { it == ')' })
+            .split("\n")
+            .map { it.trim().trimEnd(',') }
+            .filter { it.isNotEmpty() }
+            .find { it.contains(columnName) }!!
 
     data class ColumnRow(
         var tableName: String,
@@ -112,5 +121,9 @@ class TableIntrospectionBuilder {
         var columnId: Long,
     )
 
-    data class TableRow(var name: String, var comments: String?, var ddl: String)
+    data class TableRow(
+        var name: String,
+        var comments: String?,
+        var ddl: String,
+    )
 }

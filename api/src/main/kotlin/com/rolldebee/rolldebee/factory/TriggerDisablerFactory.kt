@@ -14,8 +14,8 @@ class TriggerDisablerFactory(
     val mySqlTriggerDisabler: MySqlTriggerDisabler,
     val redTriggerDisabler: RedTriggerDisabler,
 ) {
-    fun get(connection: Connection): TriggerDisabler {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): TriggerDisabler =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresTriggerDisabler
             }
@@ -29,5 +29,4 @@ class TriggerDisablerFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

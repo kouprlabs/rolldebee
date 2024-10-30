@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import useSWR from 'swr'
+import useSWR, { SWRConfiguration } from 'swr'
 import { DatabaseObject } from './common-models'
 import { Diff } from './comparison'
 import { apiFetch, apiFetcher } from './fetch'
@@ -155,7 +154,7 @@ export type DropObjectsFailure = {
 }
 
 export default class ActionAPI {
-  static useGetById(id?: string, swrOptions?: any) {
+  static useGetById(id?: string, swrOptions?: SWRConfiguration) {
     return useSWR<Action>(id ? `/actions/${id}` : null, apiFetcher, swrOptions)
   }
 
@@ -168,15 +167,15 @@ export default class ActionAPI {
     }).then((result) => result.json())
   }
 
-  static useGetAll(swrOptions?: any) {
+  static useGetAll(swrOptions?: SWRConfiguration) {
     return useSWR<Action[]>(`/actions`, apiFetcher, swrOptions)
   }
 
-  static useGetAllByType(type: string, swrOptions?: any) {
+  static useGetAllByType(type: string, swrOptions?: SWRConfiguration) {
     return useSWR<Action[]>(
       `/actions?${new URLSearchParams({ type })}`,
       apiFetcher,
-      swrOptions
+      swrOptions,
     )
   }
 
@@ -210,7 +209,7 @@ export default class ActionAPI {
   }
 
   static async runDisableConstraints(
-    options: DisableConstraintsOptions
+    options: DisableConstraintsOptions,
   ): Promise<DisableConstraintsSummary> {
     return apiFetch(`/actions/run/disable_constraints`, {
       method: 'POST',
@@ -222,7 +221,7 @@ export default class ActionAPI {
   }
 
   static async runEnableConstraints(
-    options: EnableConstraintsOptions
+    options: EnableConstraintsOptions,
   ): Promise<EnableConstraintsSummary> {
     return apiFetch(`/actions/run/enable_constraints`, {
       method: 'POST',
@@ -234,7 +233,7 @@ export default class ActionAPI {
   }
 
   static async runDisableTriggers(
-    options: DisableTriggersOptions
+    options: DisableTriggersOptions,
   ): Promise<DisableTriggersSummary> {
     return apiFetch(`/actions/run/disable_triggers`, {
       method: 'POST',
@@ -246,7 +245,7 @@ export default class ActionAPI {
   }
 
   static async runEnableTriggers(
-    options: EnableTriggersOptions
+    options: EnableTriggersOptions,
   ): Promise<EnableTriggersSummary> {
     return apiFetch(`/actions/run/enable_triggers`, {
       method: 'POST',
@@ -258,7 +257,7 @@ export default class ActionAPI {
   }
 
   static async runDropObjects(
-    options: DropObjectsOptions
+    options: DropObjectsOptions,
   ): Promise<DropObjectsSummary> {
     return apiFetch(`/actions/run/drop_objects`, {
       method: 'POST',

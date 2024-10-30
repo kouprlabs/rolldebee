@@ -13,7 +13,7 @@ data class Column(
     var dataPrecision: Long,
     var dataScale: Long,
     var nullable: Boolean,
-    var ddl: String
+    var ddl: String,
 ) {
     val id: String
         get() = "column:${tableName.lowercase()}:${name.lowercase()}"

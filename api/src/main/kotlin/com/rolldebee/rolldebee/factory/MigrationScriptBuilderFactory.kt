@@ -14,8 +14,8 @@ class MigrationScriptBuilderFactory(
     val mySqlMigrationScriptBuilder: MySqlMigrationScriptBuilder,
     val redMigrationScriptBuilder: RedMigrationScriptBuilder,
 ) {
-    fun get(connection: Connection): MigrationScriptBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): MigrationScriptBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresMigrationScriptBuilder
             }
@@ -29,5 +29,4 @@ class MigrationScriptBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

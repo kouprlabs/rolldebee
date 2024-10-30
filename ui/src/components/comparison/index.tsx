@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button, Heading, Select, Stack } from '@chakra-ui/react'
 import { variables } from '@koupr/ui'
-import { SectionSpinner, IconPlay } from '@koupr/ui'
+import { SectionSpinner, IconPlayArrow } from '@koupr/ui'
 import { MdOutlineCompareArrows } from 'react-icons/md'
 import ConnectionAPI from '@/api/connection'
 import { refreshInterval } from '@/api/options'
@@ -63,7 +63,7 @@ const Comparison = () => {
       <Box>
         <Button
           colorScheme="blue"
-          leftIcon={<IconPlay fontSize="16px" />}
+          leftIcon={<IconPlayArrow />}
           isDisabled={
             sourceConnectionId &&
             targetConnectionId &&
@@ -76,7 +76,7 @@ const Comparison = () => {
             setTargetInvalid(!targetConnectionId)
             if (sourceConnectionId && targetConnectionId) {
               navigate(
-                `/comparison/${sourceConnectionId}/${targetConnectionId}`
+                `/comparison/${sourceConnectionId}/${targetConnectionId}`,
               )
             }
           }}

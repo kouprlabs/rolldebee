@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Button, Select, Stack } from '@chakra-ui/react'
-import { SectionSpinner, IconPlay } from '@koupr/ui'
+import { SectionSpinner, IconPlayArrow } from '@koupr/ui'
 import { mutate } from 'swr'
 import ActionAPI from '@/api/action'
 import ConnectionAPI from '@/api/connection'
@@ -18,12 +18,12 @@ const Migrate = () => {
       try {
         setLoading(true)
         await ActionAPI.runMigrate({ sourceConnectionId, targetConnectionId })
-        mutate('/actions')
+        mutate('/actions').then()
       } finally {
         setLoading(false)
       }
     },
-    []
+    [],
   )
 
   if (!connections) {
@@ -64,20 +64,20 @@ const Migrate = () => {
       </Select>
       <Button
         colorScheme="blue"
-        leftIcon={<IconPlay fontSize="16px" />}
+        leftIcon={<IconPlayArrow />}
         isDisabled={
           loading ||
-          (sourceConnectionId &&
-            targetConnectionId &&
-            sourceConnectionId === targetConnectionId)
-            ? true
-            : false
+          Boolean(
+            sourceConnectionId &&
+              targetConnectionId &&
+              sourceConnectionId === targetConnectionId,
+          )
         }
-        onClick={() => {
+        onClick={async () => {
           setSourceInvalid(!sourceConnectionId)
           setTargetInvalid(!targetConnectionId)
           if (sourceConnectionId && targetConnectionId) {
-            handleClone(sourceConnectionId, targetConnectionId)
+            await handleClone(sourceConnectionId, targetConnectionId)
           }
         }}
       >

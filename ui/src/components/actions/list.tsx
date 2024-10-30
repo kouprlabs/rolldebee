@@ -142,8 +142,8 @@ const List = ({ type }: ListParams) => {
           <Delete
             id={actionId}
             open={openDeleteDialog}
-            onComplete={() => {
-              mutate()
+            onComplete={async () => {
+              await mutate()
               setOpenDeleteDialog(false)
             }}
             onDismiss={() => setOpenDeleteDialog(false)}

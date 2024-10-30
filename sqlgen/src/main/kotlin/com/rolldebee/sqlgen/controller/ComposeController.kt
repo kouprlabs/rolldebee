@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("compose")
-class ComposeController() {
-
+class ComposeController {
     @GetMapping(produces = ["text/plain"])
     fun compose(
         @RequestParam("db") db: String,
@@ -23,19 +22,21 @@ class ComposeController() {
         @RequestParam("indentSize", defaultValue = "4", required = false) indentSize: Int,
         @RequestParam("continuationIndentSize", defaultValue = "8", required = false) continuationIndentSize: Int,
     ): String {
-        val options = ComposeOptions(
-            tableCount = tableCount,
-            viewCount = viewCount,
-            materializedViewCount = materializedViewCount,
-            foreignKeyMaxCount = foreignKeyMaxCount,
-            indentSize = indentSize,
-            continuationIndentSize = continuationIndentSize,
-        )
-        val composer: Composer = when (db) {
-            "mysql" -> MySqlComposer()
-            "red" -> RedComposer()
-            else -> throw IllegalArgumentException()
-        }
+        val options =
+            ComposeOptions(
+                tableCount = tableCount,
+                viewCount = viewCount,
+                materializedViewCount = materializedViewCount,
+                foreignKeyMaxCount = foreignKeyMaxCount,
+                indentSize = indentSize,
+                continuationIndentSize = continuationIndentSize,
+            )
+        val composer: Composer =
+            when (db) {
+                "mysql" -> MySqlComposer()
+                "red" -> RedComposer()
+                else -> throw IllegalArgumentException()
+            }
         return composer.compose(options)
     }
 }

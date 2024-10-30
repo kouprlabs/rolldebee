@@ -1,12 +1,16 @@
 package com.rolldebee.rolldebee.controller
 
-import com.rolldebee.rolldebee.factory.*
+import com.rolldebee.rolldebee.factory.ComparerFactory
+import com.rolldebee.rolldebee.factory.IntrospectionBuilderFactory
+import com.rolldebee.rolldebee.factory.MigrationScriptBuilderFactory
+import com.rolldebee.rolldebee.factory.ObjectGraphBuilderFactory
+import com.rolldebee.rolldebee.factory.ObjectRouteBuilderFactory
 import com.rolldebee.rolldebee.repository.ConnectionRepository
+import jakarta.validation.constraints.NotBlank
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.constraints.NotBlank
 
 @RestController
 @RequestMapping("migration_scripts")
@@ -24,9 +28,11 @@ class MigrationScriptController(
     )
 
     @PostMapping(produces = ["text/plain"])
-    fun create(@RequestBody body: Options): String {
-        val sourceConnection = connectionRepository.getById(body.sourceConnectionId)
-        val targetConnection = connectionRepository.getById(body.targetConnectionId)
+    fun create(
+        @RequestBody body: Options,
+    ): String {
+        val sourceConnection = connectionRepository.findById(body.sourceConnectionId).get()
+        val targetConnection = connectionRepository.findById(body.targetConnectionId).get()
         val sourceIntrospection = introspectionBuilderFactory.get(sourceConnection).build(sourceConnection)
         val sourceGraph = objectGraphBuilderFactory.get(sourceConnection).build(sourceIntrospection, sourceConnection)
         val sourceRoute = objectRouteBuilderFactory.get(sourceConnection).build(sourceGraph)

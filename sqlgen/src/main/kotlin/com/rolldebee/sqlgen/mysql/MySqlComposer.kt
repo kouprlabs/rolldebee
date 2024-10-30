@@ -6,10 +6,11 @@ import com.rolldebee.sqlgen.core.RenderOptions
 
 class MySqlComposer : Composer {
     override fun compose(options: ComposeOptions): String {
-        val renderOptions = RenderOptions(
-            indentSize = options.indentSize,
-            continuationIndentSize = options.continuationIndentSize,
-        )
+        val renderOptions =
+            RenderOptions(
+                indentSize = options.indentSize,
+                continuationIndentSize = options.continuationIndentSize,
+            )
 
         val sql = StringBuilder()
 

@@ -14,8 +14,8 @@ class ObjectRouteBuilderFactory(
     val mySqlObjectRouteBuilder: MySqlObjectRouteBuilder,
     val redObjectRouteBuilder: RedObjectRouteBuilder,
 ) {
-    fun get(connection: Connection): ObjectRouteBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ObjectRouteBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresObjectRouteBuilder
             }
@@ -29,5 +29,4 @@ class ObjectRouteBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

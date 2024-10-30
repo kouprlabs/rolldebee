@@ -4,9 +4,15 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.rolldebee.rolldebee.entity.Action
 import com.rolldebee.rolldebee.entity.ActionStatus
 import com.rolldebee.rolldebee.entity.ActionType
-import com.rolldebee.rolldebee.factory.*
+import com.rolldebee.rolldebee.factory.ComparerFactory
+import com.rolldebee.rolldebee.factory.IntrospectionBuilderFactory
+import com.rolldebee.rolldebee.factory.MigratorFactory
+import com.rolldebee.rolldebee.factory.ObjectGraphBuilderFactory
+import com.rolldebee.rolldebee.factory.ObjectRouteBuilderFactory
 import com.rolldebee.rolldebee.repository.ConnectionRepository
 import com.rolldebee.rolldebee.service.ActionService
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,8 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 
 @OptIn(DelicateCoroutinesApi::class)
 @RestController
@@ -35,13 +39,15 @@ class MigrateController(
     )
 
     @PostMapping("start/")
-    fun migrate(@Valid @RequestBody body: MigrateOptions): Action {
+    fun migrate(
+        @Valid @RequestBody body: MigrateOptions,
+    ): Action {
         val actionId = actionService.create(ActionType.MIGRATE, jacksonObjectMapper().writeValueAsString(body))
         GlobalScope.launch {
             try {
                 actionService.updateStatus(actionId, ActionStatus.RUNNING)
-                val sourceConnection = connectionRepository.getById(body.sourceConnectionId)
-                val targetConnection = connectionRepository.getById(body.targetConnectionId)
+                val sourceConnection = connectionRepository.findById(body.sourceConnectionId).get()
+                val targetConnection = connectionRepository.findById(body.targetConnectionId).get()
                 val introspection = introspectionBuilderFactory.get(sourceConnection).build(sourceConnection)
                 val objectGraph = objectGraphBuilderFactory.get(sourceConnection).build(introspection, sourceConnection)
                 val objectRoute = objectRouteBuilderFactory.get(sourceConnection).build(objectGraph)

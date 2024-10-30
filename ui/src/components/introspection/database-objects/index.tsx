@@ -17,7 +17,8 @@ import {
   AlertIcon,
   CloseButton,
 } from '@chakra-ui/react'
-import { variables, Spinner, IconError, IconPlay } from '@koupr/ui'
+import { variables, Spinner, IconError, IconPlayArrow } from '@koupr/ui'
+import cx from 'classnames'
 import { FiChevronLeft } from 'react-icons/fi'
 import ConnectionAPI from '@/api/connection'
 import IntrospectAPI from '@/api/introspection'
@@ -39,7 +40,7 @@ type DatabaseObjectsProps = {
 const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
   const dispatch = useAppDispatch()
   const introspection = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]
+    (state) => state.entities.introspections.items[connectionId],
   )
   const { data: connection } = ConnectionAPI.useGetById(connectionId)
   const [loading, setLoading] = useState(false)
@@ -67,7 +68,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
     }
     if (!introspection) {
       setIsCacheDataData(false)
-      handleIntrospect()
+      handleIntrospect().then()
     } else if (isCacheData) {
       setShowCacheNotice(true)
     }
@@ -93,7 +94,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
         >
           <Button
             colorScheme="blue"
-            leftIcon={<IconPlay fontSize="16px" />}
+            leftIcon={<IconPlayArrow />}
             isDisabled={loading}
             onClick={() => handleIntrospect()}
           >
@@ -122,7 +123,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
             justifyContent="center"
             spacing={variables.spacing}
           >
-            <IconError fontSize="23px" color={red500} />
+            <IconError className={cx('text-[23px]')} color={red500} />
             <Text color={red500} fontSize="16px">
               Introspection failed
             </Text>

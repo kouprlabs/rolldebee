@@ -14,8 +14,8 @@ class ObjectGraphBuilderFactory(
     val mySqlObjectGraphBuilder: MySqlObjectGraphBuilder,
     val redObjectGraphBuilder: RedObjectGraphBuilder,
 ) {
-    fun get(connection: Connection): ObjectGraphBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ObjectGraphBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresObjectGraphBuilder
             }
@@ -29,5 +29,4 @@ class ObjectGraphBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

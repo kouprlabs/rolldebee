@@ -14,8 +14,8 @@ class ObjectDropperFactory(
     val mySqlObjectDropper: MySqlObjectDropper,
     val redObjectDropper: RedObjectDropper,
 ) {
-    fun get(connection: Connection): ObjectDropper {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ObjectDropper =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresObjectDropper
             }
@@ -29,5 +29,4 @@ class ObjectDropperFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

@@ -14,8 +14,8 @@ class ComparerFactory(
     val mySqlComparisonBuilder: MySqlComparisonBuilder,
     val redComparisonBuilder: RedComparisonBuilder,
 ) {
-    fun get(connection: Connection): ComparisonBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ComparisonBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresComparisonBuilder
             }
@@ -29,5 +29,4 @@ class ComparerFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

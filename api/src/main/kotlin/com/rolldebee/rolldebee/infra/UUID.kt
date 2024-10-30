@@ -1,9 +1,15 @@
 package com.rolldebee.rolldebee.infra
 
-import org.hashids.Hashids
-import java.util.*
+import org.sqids.Sqids
+import java.util.UUID
 
 fun uuid(): String {
-    val hashids = Hashids(UUID.randomUUID().toString())
-    return hashids.encode(System.currentTimeMillis())
+    val uuid = UUID.randomUUID()
+    return Sqids.builder().build().encode(
+        listOf(
+            uuid.mostSignificantBits,
+            uuid.leastSignificantBits,
+            System.currentTimeMillis(),
+        ),
+    )
 }

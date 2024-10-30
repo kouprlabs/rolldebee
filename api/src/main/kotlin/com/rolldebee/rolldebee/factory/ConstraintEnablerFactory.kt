@@ -14,8 +14,8 @@ class ConstraintEnablerFactory(
     val mySqlConstraintEnabler: MySqlConstraintEnabler,
     val redConstraintEnabler: RedConstraintEnabler,
 ) {
-    fun get(connection: Connection): ConstraintEnabler {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ConstraintEnabler =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresConstraintEnabler
             }
@@ -29,5 +29,4 @@ class ConstraintEnablerFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

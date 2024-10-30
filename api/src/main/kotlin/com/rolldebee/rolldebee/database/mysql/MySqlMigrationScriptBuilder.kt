@@ -6,7 +6,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class MySqlMigrationScriptBuilder : MigrationScriptBuilder {
-    override fun build(comparison: Comparison): String {
-        throw NotImplementedError()
-    }
+    override fun build(comparison: Comparison): String = throw NotImplementedError()
 }

@@ -6,105 +6,65 @@ import com.rolldebee.sqlgen.core.Renderer
 import com.rolldebee.sqlgen.core.TabularObjectRenderer
 
 class ClobColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "clob"
-    }
+    override fun name(): String = "clob"
 }
 
 class DateColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "date"
-    }
+    override fun name(): String = "date"
 }
 
 class DecimalColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "decimal"
-    }
+    override fun name(): String = "decimal"
 }
 
 class FloatColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "float"
-    }
+    override fun name(): String = "float"
 }
 
 class IntegerColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "integer"
-    }
+    override fun name(): String = "integer"
 }
 
 class NumberColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "number"
-    }
+    override fun name(): String = "number"
 }
 
 class NumericColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "numeric"
-    }
+    override fun name(): String = "numeric"
 }
 
 class SmallIntColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "smallint"
-    }
+    override fun name(): String = "smallint"
 }
 
 class TimestampColumnType : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name()
-    }
+    override fun render(options: RenderOptions): String = name()
 
-    override fun name(): String {
-        return "timestamp"
-    }
+    override fun name(): String = "timestamp"
 }
 
 class Varchar2ColumnType(
     val size: Int = 0,
 ) : ColumnTypeRenderer {
-    override fun render(options: RenderOptions): String {
-        return name() + "(" + size + ")"
-    }
+    override fun render(options: RenderOptions): String = name() + "(" + size + ")"
 
-    override fun name(): String {
-        return "varchar2"
-    }
+    override fun name(): String = "varchar2"
 }
 
 class ForeignKeyConstraint(
@@ -112,43 +72,34 @@ class ForeignKeyConstraint(
     val column: Column,
     val foreignColumn: Column,
 ) : Renderer {
-    override fun render(options: RenderOptions): String {
-        return "alter table " + column.table.name + options.newLine() +
-                options.indent() + "add constraint " + name + " foreign key (" + column.name + ") references " +
-                foreignColumn.table.name + " (" + foreignColumn.name + ");"
-    }
+    override fun render(options: RenderOptions): String =
+        "alter table " + column.table.name + options.newLine() +
+            options.indent() + "add constraint " + name + " foreign key (" + column.name + ") references " +
+            foreignColumn.table.name + " (" + foreignColumn.name + ");"
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class NotNullCheckConstraint(
     val name: String,
     val column: Column,
 ) : Renderer {
-    override fun render(options: RenderOptions): String {
-        return "alter table " + column.table.name + options.newLine() +
-                options.indent() + "add constraint " + name + " check (" + column.name + " is not null);"
-    }
+    override fun render(options: RenderOptions): String =
+        "alter table " + column.table.name + options.newLine() +
+            options.indent() + "add constraint " + name + " check (" + column.name + " is not null);"
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class PrimaryKeyConstraint(
     val name: String,
     val column: Column,
 ) : Renderer {
-    override fun render(options: RenderOptions): String {
-        return "alter table " + column.table.name + options.newLine() +
-                options.indent() + "add constraint " + name + " primary key (" + column.name + ");"
-    }
+    override fun render(options: RenderOptions): String =
+        "alter table " + column.table.name + options.newLine() +
+            options.indent() + "add constraint " + name + " primary key (" + column.name + ");"
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class Column(
@@ -170,9 +121,7 @@ class Column(
         return value
     }
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class MaterializedView(
@@ -180,24 +129,45 @@ class MaterializedView(
     val columns: List<Column> = ArrayList(),
 ) : TabularObjectRenderer {
     override fun render(options: RenderOptions): String {
-        val primaryTable = columns.stream().map(Column::table).findFirst().get()
+        val primaryTable =
+            columns
+                .stream()
+                .map(Column::table)
+                .findFirst()
+                .get()
         val buffer = StringBuilder()
-        buffer.append("create materialized view ")
+        buffer
+            .append("create materialized view ")
             .append(name)
-            .append(" as").append(options.newLine()).append("select ")
+            .append(" as")
+            .append(options.newLine())
+            .append("select ")
         for ((index, column) in columns.withIndex()) {
             when (index) {
                 0 -> {
-                    buffer.append(column.table.name).append(".").append(column.name).append(",")
+                    buffer
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(",")
                         .append(options.newLine())
                 }
                 columns.size - 1 -> {
-                    buffer.append(" ".repeat("select".length + 1)).append(column.table.name)
-                        .append(".").append(column.name).append(options.newLine())
+                    buffer
+                        .append(" ".repeat("select".length + 1))
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(options.newLine())
                 }
                 else -> {
-                    buffer.append(" ".repeat("select".length + 1)).append(column.table.name)
-                        .append(".").append(column.name).append(",").append(options.newLine())
+                    buffer
+                        .append(" ".repeat("select".length + 1))
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(",")
+                        .append(options.newLine())
                 }
             }
         }
@@ -206,12 +176,18 @@ class MaterializedView(
             if (column.foreignColumn!!.table == primaryTable) {
                 continue
             }
-            buffer.append(options.continuationIndent()).append(" left join ")
+            buffer
+                .append(options.continuationIndent())
+                .append(" left join ")
                 .append(column.foreignColumn.table.name)
                 .append(" on ")
-                .append(column.table.name).append(".").append(column.name)
+                .append(column.table.name)
+                .append(".")
+                .append(column.name)
                 .append(" = ")
-                .append(column.foreignColumn.table.name).append(".").append(column.foreignColumn.name)
+                .append(column.foreignColumn.table.name)
+                .append(".")
+                .append(column.foreignColumn.name)
             if (index != columns.size - 1) {
                 buffer.append(options.newLine())
             }
@@ -220,13 +196,9 @@ class MaterializedView(
         return buffer.toString()
     }
 
-    override fun name(): String {
-        return name
-    }
+    override fun name(): String = name
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class Table(
@@ -242,20 +214,20 @@ class Table(
             if (index == columns.size - 1) {
                 buffer.append(options.indent()).append(column.render(options)).append(options.newLine())
             } else {
-                buffer.append(options.indent()).append(column.render(options)).append(",").append(options.newLine())
+                buffer
+                    .append(options.indent())
+                    .append(column.render(options))
+                    .append(",")
+                    .append(options.newLine())
             }
         }
         buffer.append(");")
         return buffer.toString()
     }
 
-    override fun name(): String {
-        return name
-    }
+    override fun name(): String = name
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
 class View(
@@ -265,22 +237,38 @@ class View(
     override fun render(options: RenderOptions): String {
         val primaryTable = columns.map(Column::table).first()
         val buffer = StringBuilder()
-        buffer.append("create or replace view ")
+        buffer
+            .append("create or replace view ")
             .append(name)
-            .append(" as").append(options.newLine()).append("select ")
+            .append(" as")
+            .append(options.newLine())
+            .append("select ")
         for ((index, column) in columns.withIndex()) {
             when (index) {
                 0 -> {
-                    buffer.append(column.table.name).append(".").append(column.name).append(",")
+                    buffer
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(",")
                         .append(options.newLine())
                 }
                 columns.size - 1 -> {
-                    buffer.append(" ".repeat("select".length + 1)).append(column.table.name)
-                        .append(".").append(column.name).append(options.newLine())
+                    buffer
+                        .append(" ".repeat("select".length + 1))
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(options.newLine())
                 }
                 else -> {
-                    buffer.append(" ".repeat("select".length + 1)).append(column.table.name)
-                        .append(".").append(column.name).append(",").append(options.newLine())
+                    buffer
+                        .append(" ".repeat("select".length + 1))
+                        .append(column.table.name)
+                        .append(".")
+                        .append(column.name)
+                        .append(",")
+                        .append(options.newLine())
                 }
             }
         }
@@ -289,12 +277,18 @@ class View(
             if (column.foreignColumn!!.table == primaryTable) {
                 continue
             }
-            buffer.append(options.continuationIndent()).append(" left join ")
+            buffer
+                .append(options.continuationIndent())
+                .append(" left join ")
                 .append(column.foreignColumn.table.name)
                 .append(" on ")
-                .append(column.table.name).append(".").append(column.name)
+                .append(column.table.name)
+                .append(".")
+                .append(column.name)
                 .append(" = ")
-                .append(column.foreignColumn.table.name).append(".").append(column.foreignColumn.name)
+                .append(column.foreignColumn.table.name)
+                .append(".")
+                .append(column.foreignColumn.name)
             if (index != columns.size - 1) {
                 buffer.append(options.newLine())
             }
@@ -303,16 +297,15 @@ class View(
         return buffer.toString()
     }
 
-    override fun name(): String {
-        return name
-    }
+    override fun name(): String = name
 
-    override fun toString(): String {
-        return name
-    }
+    override fun toString(): String = name
 }
 
-class Procedure(private val tableName: String, private val columns: List<String>) : Renderer {
+class Procedure(
+    private val tableName: String,
+    private val columns: List<String>,
+) : Renderer {
     override fun render(options: RenderOptions): String {
         val buffer = StringBuilder()
         buffer.append("create or replace procedure print_$tableName(p_id varchar2) as" + options.newLine())
@@ -323,7 +316,8 @@ class Procedure(private val tableName: String, private val columns: List<String>
         buffer.append(
             columns.joinToString(separator = " || ' ' ||" + options.newLine()) {
                 options.indent().repeat(2) + "v_result.$it"
-            })
+            },
+        )
         buffer.append(options.newLine() + options.indent() + ");" + options.newLine())
         buffer.append("exception" + options.newLine())
         buffer.append("when others then" + options.newLine())
@@ -334,7 +328,10 @@ class Procedure(private val tableName: String, private val columns: List<String>
     }
 }
 
-class Function(private val tableName: String, private val columns: List<String>) : Renderer {
+class Function(
+    private val tableName: String,
+    private val columns: List<String>,
+) : Renderer {
     override fun render(options: RenderOptions): String {
         val buffer = StringBuilder()
         buffer.append("create or replace function get_$tableName(p_id varchar2) return varchar2 is" + options.newLine())
@@ -345,7 +342,8 @@ class Function(private val tableName: String, private val columns: List<String>)
         buffer.append(
             columns.joinToString(separator = " || ' ' ||" + options.newLine()) {
                 options.indent().repeat(2) + "v_result.$it"
-            })
+            },
+        )
         buffer.append(options.newLine() + options.indent() + ");" + options.newLine())
         buffer.append(options.indent() + "return v_result.id;" + options.newLine())
         buffer.append("exception" + options.newLine())
@@ -358,7 +356,10 @@ class Function(private val tableName: String, private val columns: List<String>)
     }
 }
 
-class Package(private val tableName: String, private val columns: List<String>) : Renderer {
+class Package(
+    private val tableName: String,
+    private val columns: List<String>,
+) : Renderer {
     override fun render(options: RenderOptions): String {
         val buffer = StringBuilder()
         buffer.append("create or replace package pkg_$tableName as" + options.newLine())
@@ -380,14 +381,16 @@ class Package(private val tableName: String, private val columns: List<String>) 
         buffer.append(options.indent().repeat(2) + "v_result $tableName%rowtype;" + options.newLine())
         buffer.append(options.indent() + "begin" + options.newLine())
         buffer.append(
-            options.indent()
-                .repeat(2) + "select * into v_result from $tableName where $tableName.id = p_id;" + options.newLine()
+            options
+                .indent()
+                .repeat(2) + "select * into v_result from $tableName where $tableName.id = p_id;" + options.newLine(),
         )
         buffer.append(options.indent().repeat(2) + "dbms_output.put_line(" + options.newLine())
         buffer.append(
             columns.joinToString(separator = " || ' ' ||" + options.newLine()) {
                 options.indent().repeat(3) + "v_result.$it"
-            })
+            },
+        )
         buffer.append(options.newLine() + options.indent().repeat(2) + ");" + options.newLine())
         buffer.append(options.indent() + "exception" + options.newLine())
         buffer.append(options.indent() + "when others then" + options.newLine())
@@ -402,14 +405,16 @@ class Package(private val tableName: String, private val columns: List<String>) 
         buffer.append(options.indent().repeat(2) + "v_result $tableName%rowtype;" + options.newLine())
         buffer.append(options.indent() + "begin" + options.newLine())
         buffer.append(
-            options.indent()
-                .repeat(2) + "select * into v_result from $tableName where $tableName.id = p_id;" + options.newLine()
+            options
+                .indent()
+                .repeat(2) + "select * into v_result from $tableName where $tableName.id = p_id;" + options.newLine(),
         )
         buffer.append(options.indent().repeat(2) + "dbms_output.put_line(" + options.newLine())
         buffer.append(
             columns.joinToString(separator = " || ' ' ||" + options.newLine()) {
                 options.indent().repeat(3) + "v_result.$it"
-            })
+            },
+        )
         buffer.append(options.newLine() + options.indent().repeat(2) + ");" + options.newLine())
         buffer.append(options.indent().repeat(2) + "return v_result.id;" + options.newLine())
         buffer.append(options.indent() + "exception" + options.newLine())
@@ -421,8 +426,8 @@ class Package(private val tableName: String, private val columns: List<String>) 
     }
 }
 
-class Sequence(private val tableName: String) : Renderer {
-    override fun render(options: RenderOptions): String {
-        return "CREATE SEQUENCE seq_$tableName INCREMENT BY 1 START WITH 1;"
-    }
+class Sequence(
+    private val tableName: String,
+) : Renderer {
+    override fun render(options: RenderOptions): String = "CREATE SEQUENCE seq_$tableName INCREMENT BY 1 START WITH 1;"
 }

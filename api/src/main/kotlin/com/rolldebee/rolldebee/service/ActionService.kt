@@ -7,29 +7,41 @@ import com.rolldebee.rolldebee.repository.ActionRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ActionService(val actionRepository: ActionRepository) {
-    fun create(type: String, params: String): String {
+class ActionService(
+    val actionRepository: ActionRepository,
+) {
+    fun create(
+        type: String,
+        params: String,
+    ): String {
         val id = uuid()
         actionRepository.save(
             Action(
-                id = id, type = type, params = params, status = ActionStatus.PENDING
-            )
+                id = id,
+                type = type,
+                params = params,
+                status = ActionStatus.PENDING,
+            ),
         )
         return id
     }
 
-    fun getById(id: String): Action {
-        return actionRepository.getById(id)
-    }
+    fun getById(id: String): Action = actionRepository.findById(id).get()
 
-    fun updateStatus(id: String, status: String) {
-        val action = actionRepository.getById(id)
+    fun updateStatus(
+        id: String,
+        status: String,
+    ) {
+        val action = actionRepository.findById(id).get()
         action.status = status
         actionRepository.save(action)
     }
 
-    fun updateResult(id: String, result: String) {
-        val action = actionRepository.getById(id)
+    fun updateResult(
+        id: String,
+        result: String,
+    ) {
+        val action = actionRepository.findById(id).get()
         action.result = result
         actionRepository.save(action)
     }

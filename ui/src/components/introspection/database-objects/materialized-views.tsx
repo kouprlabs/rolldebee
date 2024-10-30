@@ -9,7 +9,8 @@ type MaterializedViewsProps = {
 const MaterializedViews = ({ connectionId }: MaterializedViewsProps) => {
   const materializedViews = useAppSelector(
     (state) =>
-      state.entities.introspections.items[connectionId]?.materializedViews || []
+      state.entities.introspections.items[connectionId]?.materializedViews ||
+      [],
   )
   if (materializedViews && materializedViews.length > 0) {
     return (

@@ -15,7 +15,10 @@ class RedConstraintRouteBuilder : ConstraintRouteBuilder {
         return ConstraintRoute(constraints = nodes.map { it.constraint })
     }
 
-    private fun recurse(nodes: ArrayList<ConstraintGraph.Node>, node: ConstraintGraph.Node) {
+    private fun recurse(
+        nodes: ArrayList<ConstraintGraph.Node>,
+        node: ConstraintGraph.Node,
+    ) {
         if (nodes.any { it.constraint.name == node.constraint.name }) {
             return
         }

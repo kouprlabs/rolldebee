@@ -41,7 +41,7 @@ const Delete = ({ id, open, onComplete, onDismiss }: DeleteProps) => {
         setDeleteLoading(false)
       }
     },
-    [onComplete, onClose]
+    [onComplete, onClose],
   )
 
   return (

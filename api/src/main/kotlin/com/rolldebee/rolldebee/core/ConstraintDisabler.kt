@@ -6,8 +6,16 @@ data class DisableConstraintSummary(
     val successes: ArrayList<Success> = ArrayList(),
     val failures: ArrayList<Failure> = ArrayList(),
 ) {
-    data class Success(var tableName: String, var constraintName: String)
-    data class Failure(var tableName: String, var constraintName: String, var reason: String)
+    data class Success(
+        var tableName: String,
+        var constraintName: String,
+    )
+
+    data class Failure(
+        var tableName: String,
+        var constraintName: String,
+        var reason: String,
+    )
 }
 
 interface ConstraintDisabler {

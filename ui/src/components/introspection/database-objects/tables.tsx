@@ -9,7 +9,7 @@ type TablesProps = {
 
 const Tables = ({ connectionId }: TablesProps) => {
   const tables = useAppSelector(
-    (state) => state.entities.introspections.items[connectionId]?.tables || []
+    (state) => state.entities.introspections.items[connectionId]?.tables || [],
   )
   if (tables && tables.length > 0) {
     return (

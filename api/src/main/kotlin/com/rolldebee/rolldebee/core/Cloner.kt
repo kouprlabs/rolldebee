@@ -6,9 +6,15 @@ data class CloningSummary(
     val successes: List<DatabaseObject> = ArrayList(),
     val failures: List<Failure> = ArrayList(),
 ) {
-    data class Failure(var databaseObject: DatabaseObject, var reason: String)
+    data class Failure(
+        var databaseObject: DatabaseObject,
+        var reason: String,
+    )
 }
 
 interface Cloner {
-    fun run(objectRoute: ObjectRoute, connection: Connection): CloningSummary
+    fun run(
+        objectRoute: ObjectRoute,
+        connection: Connection,
+    ): CloningSummary
 }

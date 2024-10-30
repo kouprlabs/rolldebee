@@ -17,7 +17,14 @@ import {
 } from '@chakra-ui/react'
 import { variables } from '@koupr/ui'
 import { SectionSpinner } from '@koupr/ui'
-import { Field, FieldAttributes, Form, Formik } from 'formik'
+import {
+  Field,
+  FieldAttributes,
+  FieldProps,
+  Form,
+  Formik,
+  FormikHelpers,
+} from 'formik'
 import * as Yup from 'yup'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
@@ -28,6 +35,13 @@ import Delete from './delete'
 
 type EditProps = {
   id: string
+}
+
+type FormValues = {
+  name: string
+  jdbcUrl: string
+  jdbcUsername: string
+  jdbcPassword: string
 }
 
 const Edit = ({ id }: EditProps) => {
@@ -45,7 +59,10 @@ const Edit = ({ id }: EditProps) => {
   })
 
   const handleSubmit = useCallback(
-    async (values: any, { setSubmitting }: any) => {
+    async (
+      values: FormValues,
+      { setSubmitting }: FormikHelpers<FormValues>,
+    ) => {
       setSubmitting(true)
       try {
         await ConnectionAPI.update(id as string, {
@@ -66,7 +83,7 @@ const Edit = ({ id }: EditProps) => {
         setSubmitting(false)
       }
     },
-    [id, toast, navigate]
+    [id, toast, navigate],
   )
 
   if (!connection) {
@@ -98,7 +115,7 @@ const Edit = ({ id }: EditProps) => {
           name: connection.name,
           jdbcUrl: connection.jdbcUrl,
           jdbcUsername: connection.jdbcUsername,
-          jdbcPassword: connection.jdbcPassword,
+          jdbcPassword: connection.jdbcPassword || '',
         }}
         validationSchema={formSchema}
         onSubmit={handleSubmit}
@@ -108,9 +125,9 @@ const Edit = ({ id }: EditProps) => {
             <Stack spacing={variables.spacingLg}>
               <Stack spacing={variables.spacing}>
                 <Field name="name">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={errors.name && touched.name ? true : false}
+                      isInvalid={Boolean(errors.name && touched.name)}
                     >
                       <FormLabel htmlFor="name">Name</FormLabel>
                       <Input {...field} w="400px" disabled={isSubmitting} />
@@ -119,11 +136,9 @@ const Edit = ({ id }: EditProps) => {
                   )}
                 </Field>
                 <Field name="jdbcUrl">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcUrl && touched.jdbcUrl ? true : false
-                      }
+                      isInvalid={Boolean(errors.jdbcUrl && touched.jdbcUrl)}
                     >
                       <FormLabel htmlFor="jdbcUrl">JDBC URL</FormLabel>
                       <Input {...field} w="400px" disabled={isSubmitting} />
@@ -132,13 +147,11 @@ const Edit = ({ id }: EditProps) => {
                   )}
                 </Field>
                 <Field name="jdbcUsername">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcUsername && touched.jdbcUsername
-                          ? true
-                          : false
-                      }
+                      isInvalid={Boolean(
+                        errors.jdbcUsername && touched.jdbcUsername,
+                      )}
                     >
                       <FormLabel htmlFor="jdbcUsername">
                         JDBC username
@@ -149,13 +162,11 @@ const Edit = ({ id }: EditProps) => {
                   )}
                 </Field>
                 <Field name="jdbcPassword">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcPassword && touched.jdbcPassword
-                          ? true
-                          : false
-                      }
+                      isInvalid={Boolean(
+                        errors.jdbcPassword && touched.jdbcPassword,
+                      )}
                     >
                       <FormLabel htmlFor="jdbcPassword">
                         JDBC password
@@ -214,8 +225,8 @@ const Edit = ({ id }: EditProps) => {
       <Delete
         id={id}
         open={openDeleteDialog}
-        onComplete={() => {
-          mutate()
+        onComplete={async () => {
+          await mutate()
           setOpenDeleteDialog(false)
           navigate('/connections')
         }}

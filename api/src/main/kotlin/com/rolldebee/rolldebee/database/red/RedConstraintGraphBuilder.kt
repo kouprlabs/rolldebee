@@ -7,8 +7,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Service
 
 @Service
-class RedConstraintGraphBuilder(val constraintIntrospectionService: ConstrainIntrospectionBuilder) :
-    ConstraintGraphBuilder {
+class RedConstraintGraphBuilder(
+    val constraintIntrospectionService: ConstrainIntrospectionBuilder,
+) : ConstraintGraphBuilder {
     override fun build(jdbcTemplate: NamedParameterJdbcTemplate): ConstraintGraph {
         val nodes = ArrayList<ConstraintGraph.Node>()
         val constraints = constraintIntrospectionService.build(jdbcTemplate)
@@ -25,18 +26,22 @@ class RedConstraintGraphBuilder(val constraintIntrospectionService: ConstrainInt
         return ConstraintGraph(nodes = nodes)
     }
 
-    private fun dependencies(name: String, jdbcTemplate: NamedParameterJdbcTemplate): List<String> {
+    private fun dependencies(
+        name: String,
+        jdbcTemplate: NamedParameterJdbcTemplate,
+    ): List<String> {
         val result = ArrayList<String>()
-        val rows = jdbcTemplate.query(
-            """select r_constraint_name from user_constraints
+        val rows =
+            jdbcTemplate.query(
+                """select r_constraint_name from user_constraints
                 where constraint_name not like 'BIN$%'
                   and constraint_type = 'R'
                   and constraint_name = :constraint_name
             """,
-            mapOf("constraint_name" to name)
-        ) { resultSet, _ ->
-            resultSet.getString("R_CONSTRAINT_NAME")
-        }
+                mapOf("constraint_name" to name),
+            ) { resultSet, _ ->
+                resultSet.getString("R_CONSTRAINT_NAME")
+            }
         rows.forEach {
             result.add(it)
         }

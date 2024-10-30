@@ -14,8 +14,8 @@ class ConstraintRouteBuilderFactory(
     val mySqlConstraintRouteBuilder: MySqlConstraintRouteBuilder,
     val redConstraintRouteBuilder: RedConstraintRouteBuilder,
 ) {
-    fun get(connection: Connection): ConstraintRouteBuilder {
-        return when (connection.databaseType) {
+    fun get(connection: Connection): ConstraintRouteBuilder =
+        when (connection.databaseType) {
             DatabaseType.POSTGRES -> {
                 postgresConstraintRouteBuilder
             }
@@ -29,5 +29,4 @@ class ConstraintRouteBuilderFactory(
                 throw NoSuchElementException()
             }
         }
-    }
 }

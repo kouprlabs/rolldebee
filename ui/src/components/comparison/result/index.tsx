@@ -13,7 +13,8 @@ import {
   Text,
   useToken,
 } from '@chakra-ui/react'
-import { variables, IconError, IconPlay, Spinner } from '@koupr/ui'
+import { variables, IconError, IconPlayArrow, Spinner } from '@koupr/ui'
+import cx from 'classnames'
 import { FiChevronLeft } from 'react-icons/fi'
 import ComparisonAPI from '@/api/comparison'
 import ConnectionAPI from '@/api/connection'
@@ -39,7 +40,7 @@ const Result = ({
     (state) =>
       state.entities.comparisons.items[
         `${sourceConnectionId}:${targetConnectionId}`
-      ]
+      ],
   )
   const [loading, setLoading] = useState(false)
   const { data: sourceConnection } =
@@ -62,7 +63,7 @@ const Result = ({
         comparisonSet({
           key: `${sourceConnectionId}:${targetConnectionId}`,
           value: comparison,
-        })
+        }),
       )
       setFailed(false)
     } catch {
@@ -78,7 +79,7 @@ const Result = ({
     }
     if (!comparison) {
       setIsCacheDataData(false)
-      handleCompare()
+      handleCompare().then()
     } else if (isCacheData) {
       setShowCacheNotice(true)
     }
@@ -105,7 +106,7 @@ const Result = ({
           button={
             <Button
               colorScheme="blue"
-              leftIcon={<IconPlay fontSize="16px" />}
+              leftIcon={<IconPlayArrow />}
               isDisabled={loading}
               onClick={() => handleCompare()}
             >
@@ -136,7 +137,7 @@ const Result = ({
             justifyContent="center"
             spacing={variables.spacing}
           >
-            <IconError fontSize="23px" color={red500} />
+            <IconError className={cx('text-[23px]')} color={red500} />
             <Text color={red500} fontSize="16px">
               Comparison failed
             </Text>

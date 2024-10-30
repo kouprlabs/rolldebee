@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service
 import kotlin.collections.set
 
 @Service
-class RedObjectGraphBuilder(val jdbcTemplateBuilder: JdbcTemplateBuilder) : ObjectGraphBuilder {
-    override fun build(introspection: Introspection, connection: Connection): ObjectGraph {
+class RedObjectGraphBuilder(
+    val jdbcTemplateBuilder: JdbcTemplateBuilder,
+) : ObjectGraphBuilder {
+    override fun build(
+        introspection: Introspection,
+        connection: Connection,
+    ): ObjectGraph {
         val nodes = ArrayList<ObjectGraph.Node>()
         append(introspection.views, nodes)
         append(introspection.tables, nodes)
@@ -26,28 +31,31 @@ class RedObjectGraphBuilder(val jdbcTemplateBuilder: JdbcTemplateBuilder) : Obje
             params["owner"] = connection.jdbcUsername
             params["name"] = node.databaseObject.name
             params["object_type"] = node.databaseObject.objectType
-            val rows = jdbcTemplate.query(
-                """select *
+            val rows =
+                jdbcTemplate.query(
+                    """select *
                     from user_dependencies
                     where lower(referenced_owner) = lower(:owner)
                       and lower(name) = lower(:name)
                       and lower(type) = lower(:object_type)
                 """,
-                params
-            ) { resultSet, _ ->
-                val dependencyRow = Row(
-                    name = resultSet.getString("NAME"),
-                    type = resultSet.getString("TYPE"),
-                    referencedName = resultSet.getString("REFERENCED_NAME"),
-                    referencedType = resultSet.getString("REFERENCED_TYPE")
-                )
-                dependencyRow
-            }
+                    params,
+                ) { resultSet, _ ->
+                    val dependencyRow =
+                        Row(
+                            name = resultSet.getString("NAME"),
+                            type = resultSet.getString("TYPE"),
+                            referencedName = resultSet.getString("REFERENCED_NAME"),
+                            referencedType = resultSet.getString("REFERENCED_TYPE"),
+                        )
+                    dependencyRow
+                }
             val dependencies = ArrayList<ObjectGraph.Node>()
             for (row in rows) {
-                val found = nodes.find {
-                    it.databaseObject.name == row.referencedName && it.databaseObject.objectType == row.referencedType
-                }
+                val found =
+                    nodes.find {
+                        it.databaseObject.name == row.referencedName && it.databaseObject.objectType == row.referencedType
+                    }
                 if (found != null) {
                     dependencies.add(found)
                 }
@@ -57,7 +65,10 @@ class RedObjectGraphBuilder(val jdbcTemplateBuilder: JdbcTemplateBuilder) : Obje
         return ObjectGraph(nodes = nodes)
     }
 
-    private fun append(objects: List<DatabaseObject>, objectGraph: ArrayList<ObjectGraph.Node>) {
+    private fun append(
+        objects: List<DatabaseObject>,
+        objectGraph: ArrayList<ObjectGraph.Node>,
+    ) {
         objects.forEach { objectGraph.add(ObjectGraph.Node(databaseObject = it)) }
     }
 

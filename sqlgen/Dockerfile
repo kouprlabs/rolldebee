@@ -1,9 +1,9 @@
-FROM gradle:jdk17 as build-env
+FROM gradle:jdk21 as build-env
 WORKDIR /build
 COPY . .
 RUN gradle assemble
 
-FROM gradle:jdk17
+FROM gradle:jdk21
 WORKDIR /app
 COPY --from=build-env /build/build/libs .
 COPY --from=build-env /build/src/main/resources/application.yml .

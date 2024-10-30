@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostgresIntrospectionBuilder : IntrospectionBuilder {
-    override fun build(connection: Connection): Introspection {
-        throw NotImplementedError()
-    }
+    override fun build(connection: Connection): Introspection = throw NotImplementedError()
 }

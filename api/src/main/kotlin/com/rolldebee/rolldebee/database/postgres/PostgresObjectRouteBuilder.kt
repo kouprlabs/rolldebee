@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostgresObjectRouteBuilder : ObjectRouteBuilder {
-    override fun build(objectGraph: ObjectGraph): ObjectRoute {
-        throw NotImplementedError()
-    }
+    override fun build(objectGraph: ObjectGraph): ObjectRoute = throw NotImplementedError()
 }

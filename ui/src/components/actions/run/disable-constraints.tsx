@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Button, Select, Stack } from '@chakra-ui/react'
-import { IconPlay } from '@koupr/ui'
+import { IconPlayArrow } from '@koupr/ui'
 import { mutate } from 'swr'
 import ActionAPI from '@/api/action'
 import ConnectionAPI from '@/api/connection'
@@ -15,7 +15,7 @@ const DisableConstraints = () => {
     try {
       setLoading(true)
       await ActionAPI.runDisableConstraints({ connectionId })
-      mutate('/actions')
+      mutate('/actions').then()
     } finally {
       setLoading(false)
     }
@@ -44,12 +44,12 @@ const DisableConstraints = () => {
       </Select>
       <Button
         colorScheme="blue"
-        leftIcon={<IconPlay fontSize="16px" />}
+        leftIcon={<IconPlayArrow />}
         isDisabled={loading}
-        onClick={() => {
+        onClick={async () => {
           setInvalid(!connectionId)
           if (connectionId) {
-            handleRun(connectionId)
+            await handleRun(connectionId)
           }
         }}
       >

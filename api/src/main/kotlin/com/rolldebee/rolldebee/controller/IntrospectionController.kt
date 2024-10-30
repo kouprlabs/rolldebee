@@ -3,11 +3,11 @@ package com.rolldebee.rolldebee.controller
 import com.rolldebee.rolldebee.core.Introspection
 import com.rolldebee.rolldebee.factory.IntrospectionBuilderFactory
 import com.rolldebee.rolldebee.repository.ConnectionRepository
+import jakarta.validation.constraints.NotBlank
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.constraints.NotBlank
 
 @RestController
 @RequestMapping("introspections")
@@ -15,11 +15,15 @@ class IntrospectionController(
     var introspectionBuilderFactory: IntrospectionBuilderFactory,
     val connectionRepository: ConnectionRepository,
 ) {
-    data class CreateOptions(@NotBlank val connectionId: String)
+    data class CreateOptions(
+        @NotBlank val connectionId: String,
+    )
 
     @PostMapping
-    fun run(@RequestBody body: CreateOptions): Introspection {
-        val connection = connectionRepository.getById(body.connectionId)
+    fun run(
+        @RequestBody body: CreateOptions,
+    ): Introspection {
+        val connection = connectionRepository.findById(body.connectionId).get()
         val introspection = introspectionBuilderFactory.get(connection).build(connection)
         introspection.tables = introspection.tables.sortedBy { it.name }
         introspection.tables.forEach { table -> table.columns = table.columns.sortedBy { col -> col.name } }

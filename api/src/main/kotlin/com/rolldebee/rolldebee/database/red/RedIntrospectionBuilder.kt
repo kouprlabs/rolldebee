@@ -4,7 +4,13 @@ import com.rolldebee.rolldebee.core.Introspection
 import com.rolldebee.rolldebee.core.IntrospectionBuilder
 import com.rolldebee.rolldebee.core.MaterializedView
 import com.rolldebee.rolldebee.core.Table
-import com.rolldebee.rolldebee.database.red.introspection.*
+import com.rolldebee.rolldebee.database.red.introspection.ConstrainIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.IndexIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.MaterializedViewIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.SequenceIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.SourceIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.TableIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.ViewIntrospectionBuilder
 import com.rolldebee.rolldebee.entity.Connection
 import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service
@@ -35,22 +41,24 @@ class RedIntrospectionBuilder(
                 dbms_metadata.set_transform_param (dbms_metadata.session_transform,'SQLTERMINATOR', false);
                 dbms_metadata.set_transform_param (dbms_metadata.session_transform,'BODY', false);
             end;
-            """
+            """,
         )
-        val introspection = Introspection(
-            tables = tableIntrospectionBuilder.build(jdbcTemplate),
-            constraints = constrainIntrospectionBuilder.build(jdbcTemplate),
-            indexes = indexIntrospectionBuilder.build(jdbcTemplate),
-            materializedViews = materializedViewIntrospectionBuilder.build(jdbcTemplate),
-            views = viewIntrospectionBuilder.build(jdbcTemplate),
-            sequences = sequenceIntrospectionBuilder.build(jdbcTemplate),
-            sources = sourceIntrospectionBuilder.build(jdbcTemplate),
-        )
+        val introspection =
+            Introspection(
+                tables = tableIntrospectionBuilder.build(jdbcTemplate),
+                constraints = constrainIntrospectionBuilder.build(jdbcTemplate),
+                indexes = indexIntrospectionBuilder.build(jdbcTemplate),
+                materializedViews = materializedViewIntrospectionBuilder.build(jdbcTemplate),
+                views = viewIntrospectionBuilder.build(jdbcTemplate),
+                sequences = sequenceIntrospectionBuilder.build(jdbcTemplate),
+                sources = sourceIntrospectionBuilder.build(jdbcTemplate),
+            )
         introspection.tables = filterOutFakeTables(introspection.tables, introspection.materializedViews)
         return introspection
     }
 
-    private fun filterOutFakeTables(tables: List<Table>, materializedViews: List<MaterializedView>): List<Table> {
-        return tables.filter { table -> materializedViews.none { materializedView -> materializedView.name == table.name } }
-    }
+    private fun filterOutFakeTables(
+        tables: List<Table>,
+        materializedViews: List<MaterializedView>,
+    ): List<Table> = tables.filter { table -> materializedViews.none { materializedView -> materializedView.name == table.name } }
 }
