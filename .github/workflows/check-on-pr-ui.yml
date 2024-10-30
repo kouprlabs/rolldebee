@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install packages
-        run: npm i
+        run: npm i --legacy-peer-deps
         working-directory: ui
   
       - name: Run TypeScript Compiler
