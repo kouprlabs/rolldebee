@@ -1,11 +1,11 @@
-FROM node:18-alpine
+FROM oven/bun:1-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN bun i --frozen-lockfile
 
-ENTRYPOINT ["/bin/sh", "-c", "npm run dev"]
+ENTRYPOINT ["bun", "run", "dev"]
 
 EXPOSE 5173

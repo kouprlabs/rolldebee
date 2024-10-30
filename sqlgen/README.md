@@ -11,13 +11,18 @@ ktlint --format
 Lint:
 
 ```shell
-ktlint --format
+ktlint
 ```
 
-Build and run with Docker:
+Build Docker image:
 
 ```shell
 docker build -t rolldebee/sqlgen .
+```
+
+Run with Docker:
+
+```shell
 docker run --rm -it --name rolldebee-sqlgen -p 9898:9898 rolldebee/sqlgen
 ```
 

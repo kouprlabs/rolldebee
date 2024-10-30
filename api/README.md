@@ -11,7 +11,7 @@ ktlint --format
 Lint:
 
 ```shell
-ktlint --format
+ktlint
 ```
 
 Run for development:
