@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "api/**"
+      - "api/**/*.kt"
+      - "api/**/*.kts"
       - "!api/README.md"
 
 jobs:
@@ -13,9 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: musichin/ktlint-check@v3
+      - run: |
+          curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.4.0/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
+      - name: run ktlint
+        run: |
+          ktlint --reporter=checkstyle,output=build/ktlint-report.xml
+        continue-on-error: true
+      - uses: yutailang0119/action-ktlint@v4
         with:
-          ktlint-version: '1.4.0'
+          report-path: build/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
+        continue-on-error: false # If annotations contain error of severity, action-ktlint exit 1.
     permissions:
       contents: read
       pull-requests: read
