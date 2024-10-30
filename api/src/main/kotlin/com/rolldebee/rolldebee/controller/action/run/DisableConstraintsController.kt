@@ -36,7 +36,7 @@ class DisableConstraintsController(
         GlobalScope.launch {
             try {
                 actionService.updateStatus(actionId, ActionStatus.RUNNING)
-                val connection = connectionRepository.getById(body.connectionId)
+                val connection = connectionRepository.findById(body.connectionId).get()
                 val switchSummary = constraintDisablerFactory.get(connection).run(connection)
                 actionService.updateStatus(actionId, ActionStatus.SUCCEEDED)
                 actionService.updateResult(actionId, jacksonObjectMapper().writeValueAsString(switchSummary))

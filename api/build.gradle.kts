@@ -37,10 +37,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.hashids:hashids:1.0.3")
+    implementation("org.sqids:sqids:0.1.0")
     runtimeOnly("mysql:mysql-connector-java:8.0.33")
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("com.oracle.ojdbc:ojdbc10:19.3.0.0")
+    runtimeOnly("com.oracle.database.jdbc:ojdbc11:23.5.0.24.07")
 }
 
 kotlin {

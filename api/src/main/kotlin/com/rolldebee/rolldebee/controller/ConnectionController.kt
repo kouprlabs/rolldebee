@@ -30,7 +30,7 @@ class ConnectionController(val repository: ConnectionRepository) {
                 databaseType = body.databaseType,
             )
         )
-        return repository.getById(id)
+        return repository.findById(id).get()
     }
 
     @GetMapping
@@ -40,12 +40,12 @@ class ConnectionController(val repository: ConnectionRepository) {
 
     @GetMapping("{id}")
     fun getById(@PathVariable id: String): Connection {
-        return repository.getById(id)
+        return repository.findById(id).get()
     }
 
     @DeleteMapping("{id}")
     fun delete(@PathVariable id: String) {
-        repository.delete(repository.getById(id))
+        repository.delete(repository.findById(id).get())
     }
 
     data class UpdateOptions(
@@ -57,12 +57,12 @@ class ConnectionController(val repository: ConnectionRepository) {
 
     @PatchMapping("{id}")
     fun update(@PathVariable id: String, @RequestBody body: UpdateOptions): Connection {
-        val connection = repository.getById(id)
+        val connection = repository.findById(id).get()
         connection.name = body.name
         connection.jdbcUrl = body.jdbcUrl
         connection.jdbcUsername = body.jdbcUsername
         connection.jdbcPassword = body.jdbcPassword
         repository.save(connection)
-        return repository.getById(id)
+        return repository.findById(id).get()
     }
 }

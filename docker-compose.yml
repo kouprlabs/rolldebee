@@ -15,7 +15,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
   oracle:
-    image: container-registry.oracle.com/database/free:23.5.0.0-lite
+    image: container-registry.oracle.com/database/free:23.5.0.0
     ports:
       - "1521:1521"
     environment:

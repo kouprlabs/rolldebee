@@ -42,8 +42,8 @@ class CloneController(
         GlobalScope.launch {
             try {
                 actionService.updateStatus(actionId, ActionStatus.RUNNING)
-                val sourceConnection = connectionRepository.getById(body.sourceConnectionId)
-                val targetConnection = connectionRepository.getById(body.targetConnectionId)
+                val sourceConnection = connectionRepository.findById(body.sourceConnectionId).get()
+                val targetConnection = connectionRepository.findById(body.targetConnectionId).get()
                 val introspection = introspectionBuilderFactory.get(sourceConnection).build(sourceConnection)
                 val objectGraph = objectGraphBuilderFactory.get(sourceConnection).build(introspection, sourceConnection)
                 val objectRoute = objectRouteBuilderFactory.get(sourceConnection).build(objectGraph)

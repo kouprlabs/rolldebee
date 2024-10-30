@@ -25,8 +25,8 @@ class MigrationScriptController(
 
     @PostMapping(produces = ["text/plain"])
     fun create(@RequestBody body: Options): String {
-        val sourceConnection = connectionRepository.getById(body.sourceConnectionId)
-        val targetConnection = connectionRepository.getById(body.targetConnectionId)
+        val sourceConnection = connectionRepository.findById(body.sourceConnectionId).get()
+        val targetConnection = connectionRepository.findById(body.targetConnectionId).get()
         val sourceIntrospection = introspectionBuilderFactory.get(sourceConnection).build(sourceConnection)
         val sourceGraph = objectGraphBuilderFactory.get(sourceConnection).build(sourceIntrospection, sourceConnection)
         val sourceRoute = objectRouteBuilderFactory.get(sourceConnection).build(sourceGraph)

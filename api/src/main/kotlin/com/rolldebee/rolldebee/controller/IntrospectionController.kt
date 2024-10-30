@@ -19,7 +19,7 @@ class IntrospectionController(
 
     @PostMapping
     fun run(@RequestBody body: CreateOptions): Introspection {
-        val connection = connectionRepository.getById(body.connectionId)
+        val connection = connectionRepository.findById(body.connectionId).get()
         val introspection = introspectionBuilderFactory.get(connection).build(connection)
         introspection.tables = introspection.tables.sortedBy { it.name }
         introspection.tables.forEach { table -> table.columns = table.columns.sortedBy { col -> col.name } }

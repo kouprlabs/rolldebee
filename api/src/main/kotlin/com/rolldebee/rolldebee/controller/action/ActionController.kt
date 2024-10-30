@@ -30,12 +30,12 @@ class ActionController(
 
     @GetMapping("{id}")
     fun getById(@PathVariable("id") id: String): Action {
-        return actionRepository.getById(id)
+        return actionRepository.findById(id).get()
     }
 
     @DeleteMapping("{id}")
     fun delete(@PathVariable("id") id: String): ResponseEntity<Any> {
-        val action = actionRepository.getById(id)
+        val action = actionRepository.findById(id).get()
         return if (action.status != ActionStatus.RUNNING) {
             actionRepository.delete(action)
             ResponseEntity.ok().build()

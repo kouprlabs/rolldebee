@@ -41,7 +41,7 @@ class DropObjectsController(
         GlobalScope.launch {
             try {
                 actionService.updateStatus(actionId, ActionStatus.RUNNING)
-                val connection = connectionRepository.getById(body.connectionId)
+                val connection = connectionRepository.findById(body.connectionId).get()
                 val introspection = introspectionBuilderFactory.get(connection).build(connection)
                 val objectGraph = objectGraphBuilderFactory.get(connection).build(introspection, connection)
                 val objectRoute = objectRouteBuilderFactory.get(connection).build(objectGraph)

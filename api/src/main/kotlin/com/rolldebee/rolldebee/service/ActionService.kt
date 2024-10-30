@@ -19,17 +19,17 @@ class ActionService(val actionRepository: ActionRepository) {
     }
 
     fun getById(id: String): Action {
-        return actionRepository.getById(id)
+        return actionRepository.findById(id).get()
     }
 
     fun updateStatus(id: String, status: String) {
-        val action = actionRepository.getById(id)
+        val action = actionRepository.findById(id).get()
         action.status = status
         actionRepository.save(action)
     }
 
     fun updateResult(id: String, result: String) {
-        val action = actionRepository.getById(id)
+        val action = actionRepository.findById(id).get()
         action.result = result
         actionRepository.save(action)
     }
