@@ -15,7 +15,7 @@ const DropObjects = () => {
     try {
       setLoading(true)
       await ActionAPI.runDropObjects({ connectionId })
-      mutate('/actions')
+      mutate('/actions').then()
     } finally {
       setLoading(false)
     }
@@ -46,10 +46,10 @@ const DropObjects = () => {
         colorScheme="red"
         leftIcon={<IconPlayArrow />}
         isDisabled={loading}
-        onClick={() => {
+        onClick={async () => {
           setInvalid(!connectionId)
           if (connectionId) {
-            handleRun(connectionId)
+            await handleRun(connectionId)
           }
         }}
       >

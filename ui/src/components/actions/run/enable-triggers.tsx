@@ -15,7 +15,7 @@ const EnableTriggers = () => {
     try {
       setLoading(true)
       await ActionAPI.runEnableTriggers({ connectionId })
-      mutate('/actions')
+      mutate('/actions').then()
     } finally {
       setLoading(false)
     }
@@ -46,10 +46,10 @@ const EnableTriggers = () => {
         colorScheme="blue"
         leftIcon={<IconPlayArrow />}
         isDisabled={loading}
-        onClick={() => {
+        onClick={async () => {
           setInvalid(!connectionId)
           if (connectionId) {
-            handleRun(connectionId)
+            await handleRun(connectionId)
           }
         }}
       >

@@ -43,13 +43,10 @@ export interface Index extends DatabaseObject {
   status: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MaterializedView extends DatabaseObject {}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface View extends DatabaseObject {}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Sequence extends DatabaseObject {}
 
 export interface Source extends DatabaseObject {

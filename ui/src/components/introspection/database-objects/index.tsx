@@ -68,7 +68,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
     }
     if (!introspection) {
       setIsCacheDataData(false)
-      handleIntrospect()
+      handleIntrospect().then()
     } else if (isCacheData) {
       setShowCacheNotice(true)
     }

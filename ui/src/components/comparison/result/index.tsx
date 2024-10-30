@@ -79,7 +79,7 @@ const Result = ({
     }
     if (!comparison) {
       setIsCacheDataData(false)
-      handleCompare()
+      handleCompare().then()
     } else if (isCacheData) {
       setShowCacheNotice(true)
     }

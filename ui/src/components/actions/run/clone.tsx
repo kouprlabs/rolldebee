@@ -18,7 +18,7 @@ const Clone = () => {
       try {
         setLoading(true)
         await ActionAPI.runClone({ sourceConnectionId, targetConnectionId })
-        mutate('/actions')
+        mutate('/actions').then()
       } finally {
         setLoading(false)
       }
@@ -68,17 +68,17 @@ const Clone = () => {
         isLoading={loading}
         isDisabled={
           loading ||
-          (sourceConnectionId &&
-            targetConnectionId &&
-            sourceConnectionId === targetConnectionId)
-            ? true
-            : false
+          Boolean(
+            sourceConnectionId &&
+              targetConnectionId &&
+              sourceConnectionId === targetConnectionId,
+          )
         }
-        onClick={() => {
+        onClick={async () => {
           setSourceInvalid(!sourceConnectionId)
           setTargetInvalid(!targetConnectionId)
           if (sourceConnectionId && targetConnectionId) {
-            handleClone(sourceConnectionId, targetConnectionId)
+            await handleClone(sourceConnectionId, targetConnectionId)
           }
         }}
       >

@@ -18,7 +18,7 @@ const Migrate = () => {
       try {
         setLoading(true)
         await ActionAPI.runMigrate({ sourceConnectionId, targetConnectionId })
-        mutate('/actions')
+        mutate('/actions').then()
       } finally {
         setLoading(false)
       }
@@ -67,17 +67,17 @@ const Migrate = () => {
         leftIcon={<IconPlayArrow />}
         isDisabled={
           loading ||
-          (sourceConnectionId &&
-            targetConnectionId &&
-            sourceConnectionId === targetConnectionId)
-            ? true
-            : false
+          Boolean(
+            sourceConnectionId &&
+              targetConnectionId &&
+              sourceConnectionId === targetConnectionId,
+          )
         }
-        onClick={() => {
+        onClick={async () => {
           setSourceInvalid(!sourceConnectionId)
           setTargetInvalid(!targetConnectionId)
           if (sourceConnectionId && targetConnectionId) {
-            handleClone(sourceConnectionId, targetConnectionId)
+            await handleClone(sourceConnectionId, targetConnectionId)
           }
         }}
       >

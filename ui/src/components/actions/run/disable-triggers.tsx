@@ -15,7 +15,7 @@ const DisableTriggers = () => {
     try {
       setLoading(true)
       await ActionAPI.runDisableTriggers({ connectionId })
-      mutate('/actions')
+      mutate('/actions').then()
     } finally {
       setLoading(false)
     }
@@ -46,10 +46,10 @@ const DisableTriggers = () => {
         colorScheme="blue"
         leftIcon={<IconPlayArrow />}
         isDisabled={loading}
-        onClick={() => {
+        onClick={async () => {
           setInvalid(!connectionId)
           if (connectionId) {
-            handleRun(connectionId)
+            await handleRun(connectionId)
           }
         }}
       >

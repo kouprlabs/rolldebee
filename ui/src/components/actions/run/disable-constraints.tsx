@@ -15,7 +15,7 @@ const DisableConstraints = () => {
     try {
       setLoading(true)
       await ActionAPI.runDisableConstraints({ connectionId })
-      mutate('/actions')
+      mutate('/actions').then()
     } finally {
       setLoading(false)
     }
@@ -46,10 +46,10 @@ const DisableConstraints = () => {
         colorScheme="blue"
         leftIcon={<IconPlayArrow />}
         isDisabled={loading}
-        onClick={() => {
+        onClick={async () => {
           setInvalid(!connectionId)
           if (connectionId) {
-            handleRun(connectionId)
+            await handleRun(connectionId)
           }
         }}
       >
