@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { DatabaseObject } from './common-models'
 import { apiFetch } from './fetch'
 

@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import useSWR from 'swr'
+import useSWR, { SWRConfiguration } from 'swr'
 import { DatabaseObject } from './common-models'
 import { Diff } from './comparison'
 import { apiFetch, apiFetcher } from './fetch'
@@ -155,7 +154,7 @@ export type DropObjectsFailure = {
 }
 
 export default class ActionAPI {
-  static useGetById(id?: string, swrOptions?: any) {
+  static useGetById(id?: string, swrOptions?: SWRConfiguration) {
     return useSWR<Action>(id ? `/actions/${id}` : null, apiFetcher, swrOptions)
   }
 
@@ -168,11 +167,11 @@ export default class ActionAPI {
     }).then((result) => result.json())
   }
 
-  static useGetAll(swrOptions?: any) {
+  static useGetAll(swrOptions?: SWRConfiguration) {
     return useSWR<Action[]>(`/actions`, apiFetcher, swrOptions)
   }
 
-  static useGetAllByType(type: string, swrOptions?: any) {
+  static useGetAllByType(type: string, swrOptions?: SWRConfiguration) {
     return useSWR<Action[]>(
       `/actions?${new URLSearchParams({ type })}`,
       apiFetcher,

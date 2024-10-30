@@ -15,7 +15,14 @@ import {
   FormLabel,
 } from '@chakra-ui/react'
 import { variables } from '@koupr/ui'
-import { Field, FieldAttributes, Form, Formik, FormikHelpers } from 'formik'
+import {
+  Field,
+  FieldAttributes,
+  FieldProps,
+  Form,
+  Formik,
+  FormikHelpers,
+} from 'formik'
 import * as Yup from 'yup'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { FiChevronLeft } from 'react-icons/fi'
@@ -103,9 +110,9 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
             <Stack spacing={variables.spacingLg}>
               <Stack spacing={variables.spacing}>
                 <Field name="name">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={errors.name && touched.name ? true : false}
+                      isInvalid={Boolean(errors.name && touched.name)}
                     >
                       <FormLabel htmlFor="name">Name</FormLabel>
                       <Input {...field} w="400px" disabled={isSubmitting} />
@@ -114,11 +121,9 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
                   )}
                 </Field>
                 <Field name="jdbcUrl">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcUrl && touched.jdbcUrl ? true : false
-                      }
+                      isInvalid={Boolean(errors.jdbcUrl && touched.jdbcUrl)}
                     >
                       <FormLabel htmlFor="jdbcUrl">JDBC URL</FormLabel>
                       <Input {...field} w="650px" disabled={isSubmitting} />
@@ -127,13 +132,11 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
                   )}
                 </Field>
                 <Field name="jdbcUsername">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcUsername && touched.jdbcUsername
-                          ? true
-                          : false
-                      }
+                      isInvalid={Boolean(
+                        errors.jdbcUsername && touched.jdbcUsername,
+                      )}
                     >
                       <FormLabel htmlFor="jdbcUsername">
                         JDBC username
@@ -144,13 +147,11 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
                   )}
                 </Field>
                 <Field name="jdbcPassword">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.jdbcPassword && touched.jdbcPassword
-                          ? true
-                          : false
-                      }
+                      isInvalid={Boolean(
+                        errors.jdbcPassword && touched.jdbcPassword,
+                      )}
                     >
                       <FormLabel htmlFor="jdbcPassword">
                         JDBC password
@@ -184,13 +185,11 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
                   )}
                 </Field>
                 <Field name="databaseType">
-                  {({ field }: FieldAttributes<any>) => (
+                  {({ field }: FieldAttributes<FieldProps>) => (
                     <FormControl
-                      isInvalid={
-                        errors.databaseType && touched.databaseType
-                          ? true
-                          : false
-                      }
+                      isInvalid={Boolean(
+                        errors.databaseType && touched.databaseType,
+                      )}
                     >
                       <FormLabel htmlFor="databaseType">
                         Database type
@@ -201,10 +200,10 @@ const Create = ({ onComplete, onDismiss }: CreateProps) => {
                         w="250px"
                       >
                         <option value="postgres" disabled>
-                          Postgres (comming soon)
+                          Postgres (coming soon)
                         </option>
                         <option value="mysql" disabled>
-                          MySQL (comming soon)
+                          MySQL (coming soon)
                         </option>
                         <option value="red">Oracle</option>
                       </Select>

@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import useSWR from 'swr'
+import useSWR, { SWRConfiguration } from 'swr'
 import { apiFetch, apiFetcher } from './fetch'
 
 export type Connection = {
@@ -31,7 +30,7 @@ export type UpdateOptions = {
 }
 
 export default class ConnectionAPI {
-  static useGetById(id?: string, swrOptions?: any) {
+  static useGetById(id?: string, swrOptions?: SWRConfiguration) {
     return useSWR<Connection>(
       id ? `/connections/${id}` : null,
       apiFetcher,
@@ -48,7 +47,7 @@ export default class ConnectionAPI {
     }).then((result) => result.json())
   }
 
-  static useGetAll(swrOptions?: any) {
+  static useGetAll(swrOptions?: SWRConfiguration) {
     return useSWR<Connection[]>(`/connections`, apiFetcher, swrOptions)
   }
 
