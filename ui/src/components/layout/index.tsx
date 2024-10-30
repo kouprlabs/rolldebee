@@ -27,7 +27,7 @@ const Layout = () => {
     <Stack direction="row" spacing={0} height="100vh">
       <Sidenav
         storage={{ prefix: 'rolldebee', namespace: 'main' }}
-        logo={<Logo type="koupr" size="sm" />}
+        logo={<Logo />}
         navigateFn={navigate}
       >
         <SidenavItem
