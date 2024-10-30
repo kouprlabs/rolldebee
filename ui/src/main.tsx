@@ -20,7 +20,6 @@ import IntrospectionViewPage from '@/pages/introspection/view'
 import ReactDOM from 'react-dom/client'
 import store from '@/store/index'
 import Layout from '@/components/layout'
-import '@koupr/ui/styles/index.css'
 
 const router = createBrowserRouter([
   {
@@ -94,5 +93,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <RouterProvider router={router} />
       </ChakraProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 )

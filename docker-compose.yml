@@ -15,7 +15,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
   oracle:
-    image: container-registry.oracle.com/database/express:21.3.0-xe
+    image: container-registry.oracle.com/database/free:23.5.0.0-lite
     ports:
       - "1521:1521"
     environment:
@@ -23,10 +23,6 @@ services:
     volumes:
       - oradata:/opt/oracle/oradata
       - ./sql/oracle:/opt/oracle/scripts/startup
-  adminer:
-    image: adminer:4.8.1
-    ports:
-      - 9090:8080
   api:
     image: rolldebee/api
     build:

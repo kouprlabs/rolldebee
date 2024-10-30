@@ -17,7 +17,8 @@ import {
   AlertIcon,
   CloseButton,
 } from '@chakra-ui/react'
-import { variables, Spinner, IconError, IconPlay } from '@koupr/ui'
+import { variables, Spinner, IconError, IconPlayArrow } from '@koupr/ui'
+import cx from 'classnames'
 import { FiChevronLeft } from 'react-icons/fi'
 import ConnectionAPI from '@/api/connection'
 import IntrospectAPI from '@/api/introspection'
@@ -93,7 +94,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
         >
           <Button
             colorScheme="blue"
-            leftIcon={<IconPlay fontSize="16px" />}
+            leftIcon={<IconPlayArrow />}
             isDisabled={loading}
             onClick={() => handleIntrospect()}
           >
@@ -122,7 +123,7 @@ const DatabaseObjects = ({ connectionId, onDismiss }: DatabaseObjectsProps) => {
             justifyContent="center"
             spacing={variables.spacing}
           >
-            <IconError fontSize="23px" color={red500} />
+            <IconError className={cx('text-[23px]')} color={red500} />
             <Text color={red500} fontSize="16px">
               Introspection failed
             </Text>

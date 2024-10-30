@@ -5,10 +5,10 @@ import com.rolldebee.rolldebee.infra.uuid
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.PreUpdate
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.PreUpdate
 
 object DatabaseType {
     const val POSTGRES = "postgres"

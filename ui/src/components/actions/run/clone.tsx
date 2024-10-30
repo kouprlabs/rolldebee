@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Button, Select, Stack } from '@chakra-ui/react'
-import { SectionSpinner, IconPlay } from '@koupr/ui'
+import { SectionSpinner, IconPlayArrow } from '@koupr/ui'
 import { mutate } from 'swr'
 import ActionAPI from '@/api/action'
 import ConnectionAPI from '@/api/connection'
@@ -64,7 +64,7 @@ const Clone = () => {
       </Select>
       <Button
         colorScheme="blue"
-        leftIcon={<IconPlay fontSize="16px" />}
+        leftIcon={<IconPlayArrow />}
         isLoading={loading}
         isDisabled={
           loading ||

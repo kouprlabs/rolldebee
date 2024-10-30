@@ -1,4 +1,4 @@
-import { ReactComponent as Svg } from './logo.svg'
+import Svg from './logo.svg?react'
 
 const Logo = () => <Svg />
 

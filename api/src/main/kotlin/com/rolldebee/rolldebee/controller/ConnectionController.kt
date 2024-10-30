@@ -4,7 +4,7 @@ import com.rolldebee.rolldebee.entity.Connection
 import com.rolldebee.rolldebee.infra.uuid
 import com.rolldebee.rolldebee.repository.ConnectionRepository
 import org.springframework.web.bind.annotation.*
-import javax.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotBlank
 
 @RestController
 @RequestMapping("connections")
