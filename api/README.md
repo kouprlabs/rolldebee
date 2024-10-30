@@ -8,6 +8,12 @@ Format code:
 ktlint --format
 ```
 
+Lint:
+
+```shell
+ktlint --format
+```
+
 Run for development:
 
 ```shell
