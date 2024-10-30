@@ -1,5 +1,19 @@
 # Rolldebee SQL Generator
 
+Install [klint](https://ktlint.github.io).
+
+Format code:
+
+```shell
+ktlint --format
+```
+
+Lint:
+
+```shell
+ktlint --format
+```
+
 Build and run with Docker:
 
 ```shell
