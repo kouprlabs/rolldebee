@@ -4,7 +4,13 @@ import com.rolldebee.rolldebee.core.Introspection
 import com.rolldebee.rolldebee.core.IntrospectionBuilder
 import com.rolldebee.rolldebee.core.MaterializedView
 import com.rolldebee.rolldebee.core.Table
-import com.rolldebee.rolldebee.database.red.introspection.*
+import com.rolldebee.rolldebee.database.red.introspection.ConstrainIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.IndexIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.MaterializedViewIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.SequenceIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.SourceIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.TableIntrospectionBuilder
+import com.rolldebee.rolldebee.database.red.introspection.ViewIntrospectionBuilder
 import com.rolldebee.rolldebee.entity.Connection
 import com.rolldebee.rolldebee.infra.JdbcTemplateBuilder
 import org.springframework.stereotype.Service

@@ -1,6 +1,10 @@
 package com.rolldebee.rolldebee.database.red
 
-import com.rolldebee.rolldebee.core.*
+import com.rolldebee.rolldebee.core.Comparison
+import com.rolldebee.rolldebee.core.ComparisonBuilder
+import com.rolldebee.rolldebee.core.DatabaseObject
+import com.rolldebee.rolldebee.core.ObjectRoute
+import com.rolldebee.rolldebee.core.Table
 import com.rolldebee.rolldebee.entity.Connection
 import org.springframework.stereotype.Service
 

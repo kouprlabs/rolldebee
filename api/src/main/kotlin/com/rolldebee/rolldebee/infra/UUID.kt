@@ -1,7 +1,7 @@
 package com.rolldebee.rolldebee.infra
 
 import org.sqids.Sqids
-import java.util.*
+import java.util.UUID
 
 fun uuid(): String {
     val uuid = UUID.randomUUID()
